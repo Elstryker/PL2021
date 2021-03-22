@@ -34,18 +34,31 @@ def ex1():
 
 def ex2():
     data = {}
-    num = 0
-    isAutor = True
+    num1 = 0
+    key = ""
+    autor = ""
+    nextLine = False
     with open("exemplo-utf8.bib") as file:
         for line in file:
-            if isAutor:
-                m = re.search(r'author *= *["{]+([^"}]+)["}]+', line)
-            if m:
-                print(m.group(1))
-                num+=1
-    print(num)
+            if m := re.search(r'@[a-zA-Z]+{([^,]+),',line):
+                key = m.group(1)
+                num1 += 1
+            elif m := re.search(r'(?i:author) *= *["{]+([^"}]+)["}]+', line):
+                print(m.group(1).strip())
+                print(num1)
+            elif m := re.search(r'(?i:author) *= *["{]+([^"}]+)', line):
+                autor = m.group(1).strip()
+                nextLine = True
+            elif (m := re.search(r'^ *([^\n}]+)\n$', line)) and nextLine:
+                autor = autor + " " + m.group(1).strip()
+            elif (m := re.search(r'^ *([^}]+)}', line)) and nextLine:
+                autor = autor + " " + m.group(1).strip()
+                nextLine = False
+                print(autor)
+                print(num1)
+                autor = ""
+
+    print(num1)
     #NOT COMPLETE
-
-
 
 ex2()

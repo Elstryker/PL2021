@@ -32,33 +32,52 @@ def ex1():
 </html>""")
 
 
+def addDictEx2(key, tokens, data):
+    for token in tokens:
+        if token in data:
+            data[token].append(key)
+        else:
+            data[token] = [key]
+
+def processTokensEx2(tokens):
+    for s,token in enumerate(tokens):
+        tokens[s] = re.sub("([^,]+), (.+)", r'\2 \1',token)
+
 def ex2():
     data = {}
-    num1 = 0
     key = ""
     autor = ""
     nextLine = False
+    add = False
+    number = 0
     with open("exemplo-utf8.bib") as file:
         for line in file:
-            if m := re.search(r'@[a-zA-Z]+{([^,]+),',line):
+            if m := re.search(r'@[a-zA-Z]+{([^,]+),', line):
                 key = m.group(1)
-                num1 += 1
             elif m := re.search(r'(?i:author) *= *["{]+([^"}]+)["}]+', line):
-                print(m.group(1).strip())
-                print(num1)
+                autor = m.group(1).strip()
+                add = True
             elif m := re.search(r'(?i:author) *= *["{]+([^"}]+)', line):
                 autor = m.group(1).strip()
                 nextLine = True
-            elif (m := re.search(r'^ *([^\n}]+)\n$', line)) and nextLine:
-                autor = autor + " " + m.group(1).strip()
-            elif (m := re.search(r'^ *([^}]+)}', line)) and nextLine:
+            elif (m := re.search(r'^ *([^}"]+)[}"]', line)) and nextLine:
                 autor = autor + " " + m.group(1).strip()
                 nextLine = False
-                print(autor)
-                print(num1)
+                add = True
+            elif (m := re.search(r'^ *([^\n}"]+)\n$', line)) and nextLine:
+                autor = autor + " " + m.group(1).strip()
+            if add:
+                autor = re.sub(" +", " ", autor)
+                tokens = re.split(" and ", autor)
+                processTokensEx2(tokens)
+                addDictEx2(key, tokens, data)
                 autor = ""
+                add = False
 
-    print(num1)
-    #NOT COMPLETE
+    for a,b in data.items():
+        print("Autor: ",a,", Assets: ",b)
+    print(number)
+    # NOT COMPLETE
+
 
 ex2()

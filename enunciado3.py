@@ -187,6 +187,25 @@ def addDictEx2(key, tokens, data):
 def processTokensEx2(tokens):
     for s, token in enumerate(tokens):
         tokens[s] = re.sub("([^,]+), (.+)", r'\2 \1', token)
+        tokens[s] = processaCarateresEspeciais(token)
+
+
+def processaCarateresEspeciais(palavra):
+    palavra = re.sub(r'\\\'a',"á",palavra)
+    palavra = re.sub(r"\\\'A", "Á", palavra)
+    palavra = re.sub(r"\\\'e", "é", palavra)
+    palavra = re.sub(r"\\\'E", "É", palavra)
+    palavra = re.sub(r"\\\'i", "í", palavra)
+    palavra = re.sub(r"\\\'I", "Í", palavra)
+    palavra = re.sub(r"\\\'o", "ó", palavra)
+    palavra = re.sub(r"\\\'O", "Ó", palavra)
+    palavra = re.sub(r"\\\'u", "ú", palavra)
+    palavra = re.sub(r"\\\'U", "Ú", palavra)
+    palavra = re.sub(r"\\~a", "ã", palavra)
+    palavra = re.sub(r"\\~A", "Ã", palavra)
+    palavra = re.sub(r"\\~o", "õ", palavra)
+    palavra = re.sub(r"\\~O", "Õ", palavra)
+    return palavra
 
 
 def generateDOT(inp, data):

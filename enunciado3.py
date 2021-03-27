@@ -61,14 +61,12 @@ def ex2():
                 add = False
     # Print dos resultados obtidos
     generateHTML2(data)
-    # KINDA COMPLETE
 
 
 def ex3():
     f = open("exemplo-utf8.bib", "r")
-    out = open("bib.json", "w")
+    out = open("output3.json", "w")
     f2 = f.read()
-    dictionary = dict()
     id = re.split(r'@(.+){(.+),', f2)
     i = 3
 
@@ -81,7 +79,7 @@ def ex3():
         f = 0
 
         while f < len(campos):
-            c = re.sub(r',$|,}$', "", re.sub(r' +', " ", re.sub(r'[\n"]', "", campos[f][1])))
+            c = re.sub(r',}?$', "", re.sub(r' +', " ", re.sub(r'[\n"]', "", campos[f][1])))
             out.write("\t\t\"" + campos[f][0].strip() + "\": \"" + c + "\"")
             if f != len(campos) - 1:
                 out.write(", \n")
@@ -151,6 +149,7 @@ def generateHTML(data):
 </html>""")
         f.flush()
 
+
 def generateHTML2(data):
     with open("output2.html", "w") as f:
         f.write("""<!doctype html>
@@ -165,7 +164,7 @@ def generateHTML2(data):
             f.write("\t\t\t<li>" + a + "</li>\n")
             f.write("\t\t\t\t<ul>\n")
             for el in b:
-                f.write("\t\t\t\t\t<li>"+el+"</li>\n")
+                f.write("\t\t\t\t\t<li>" + el + "</li>\n")
             f.write("\t\t\t\t</ul>\n")
         f.write("""\t\t</ul>
     </body>
@@ -191,20 +190,20 @@ def processTokensEx2(tokens):
 
 
 def processaCarateresEspeciais(palavra):
-    palavra = re.sub(r'\\\'a',"á",palavra)
-    palavra = re.sub(r"\\\'A", "Á", palavra)
-    palavra = re.sub(r"\\\'e", "é", palavra)
-    palavra = re.sub(r"\\\'E", "É", palavra)
-    palavra = re.sub(r"\\\'i", "í", palavra)
-    palavra = re.sub(r"\\\'I", "Í", palavra)
-    palavra = re.sub(r"\\\'o", "ó", palavra)
-    palavra = re.sub(r"\\\'O", "Ó", palavra)
-    palavra = re.sub(r"\\\'u", "ú", palavra)
-    palavra = re.sub(r"\\\'U", "Ú", palavra)
-    palavra = re.sub(r"\\~a", "ã", palavra)
-    palavra = re.sub(r"\\~A", "Ã", palavra)
-    palavra = re.sub(r"\\~o", "õ", palavra)
-    palavra = re.sub(r"\\~O", "Õ", palavra)
+    palavra = re.sub(r'\\\'a', "á", palavra)
+    palavra = re.sub(r'\\\'A', "Á", palavra)
+    palavra = re.sub(r'\\\'e', "é", palavra)
+    palavra = re.sub(r'\\\'E', "É", palavra)
+    palavra = re.sub(r'\\\'i', "í", palavra)
+    palavra = re.sub(r'\\\'I', "Í", palavra)
+    palavra = re.sub(r'\\\'o', "ó", palavra)
+    palavra = re.sub(r'\\\'O', "Ó", palavra)
+    palavra = re.sub(r'\\\'u', "ú", palavra)
+    palavra = re.sub(r'\\\'U', "Ú", palavra)
+    palavra = re.sub(r'\\~a"', "ã", palavra)
+    palavra = re.sub(r'\\~A"', "Ã", palavra)
+    palavra = re.sub(r'\\~o"', "õ", palavra)
+    palavra = re.sub(r'\\~O"', "Õ", palavra)
     return palavra
 
 
@@ -215,6 +214,7 @@ def generateDOT(inp, data):
             f.write("\t \"" + inp + "\" -- \"" + aut + '\"\n')
         f.write("}")
         f.flush()
+
 
 opcao = -1
 while opcao != 5:

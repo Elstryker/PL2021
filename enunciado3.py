@@ -185,8 +185,8 @@ def addDictEx2(key, tokens, data):
 # Correção de casos (Apelido, Nome) para (Nome Apelido)
 def processTokensEx2(tokens):
     for s, token in enumerate(tokens):
-        tokens[s] = re.sub("([^,]+), (.+)", r'\2 \1', token)
-        tokens[s] = processaCarateresEspeciais(token)
+        temp = re.sub("([^,]+), (.+)", r'\2 \1', token)
+        tokens[s] = processaCarateresEspeciais(temp)
 
 
 def processaCarateresEspeciais(palavra):

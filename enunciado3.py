@@ -3,7 +3,7 @@ import re
 
 def ex1():
     # Dicionário da informação obtida
-    data = {}
+    data = dict()
     with open("exemplo-utf8.bib") as file:
         for line in file:
             # Parse de cada categoria do ficheiro
@@ -22,7 +22,7 @@ def ex1():
 
 
 def ex2():
-    data = {}
+    data = dict()
     key = ""
     autor = ""
     nextLine = False
@@ -182,7 +182,7 @@ def addDictEx2(key, tokens, data):
             data[token] = [key]
 
 
-# Correção de casos (Apelido, Nome) para (Nome Apelido)
+# Correção de casos (Apelido, Nome) para (Nome Apelido) e substituição de carateres especiais latex para os apropriados
 def processTokensEx2(tokens):
     for s, token in enumerate(tokens):
         temp = re.sub("([^,]+), (.+)", r'\2 \1', token)

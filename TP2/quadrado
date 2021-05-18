@@ -1,0 +1,26 @@
+int i
+
+def quadrado(){
+	int res = 1
+	int j
+	int k
+	int c
+	printf("Insira o comprimento do lado\n")
+	j = getline()
+	while (res == 1 && k < 3) {
+		printf("Insira o comprimento do lado\n")
+		c = getline()
+		res = j == c
+		k = k + 1
+	}
+
+	return res
+}
+
+i = call quadrado()
+
+if (i == 1) {
+	printf("Os lados inseridos sao um quadrado!")
+} else {
+	printf("Nao sao os lados de um quadrado.")
+}

@@ -1,0 +1,23 @@
+int i
+
+def menor () {
+	int j
+	int k
+	int res
+	int c
+	j = getline()
+	
+	while(k < j){
+		c = getline()
+		if (c < res || k == 0) {
+			res = c
+		}
+		k = k + 1
+	}
+	return res
+}
+
+i = call menor()
+
+printf("O menor número é o ")
+printf(i)

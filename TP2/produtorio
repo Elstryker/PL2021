@@ -1,0 +1,21 @@
+int i
+
+def produtorio () {
+	int j = 3
+	int c
+	int new
+	int res = 1
+	
+	while (c < j){
+		new = getline()
+		res = res * new
+		c = c + 1
+	}
+
+	return res
+}
+
+i = call produtorio()
+
+printf("O produtorio dos numeros é: ")
+printf(i)

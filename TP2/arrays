@@ -1,0 +1,19 @@
+int j = 3
+int[2][3] i
+int g = -4 * -3 + j
+int k = 4
+int[3] h
+int f = 2
+
+i[1][1] = 4
+i[1][2] = f * j
+h[1] = 15
+h[0] = h[1] + 67
+h[2] = h[1] + i[1][1]
+
+
+if (h[2] < h[1]) {
+	printf("isto é maior que o outro")
+} else {
+	printf("I guess not")
+}

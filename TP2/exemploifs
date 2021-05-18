@@ -1,0 +1,44 @@
+int i = 5
+int bla = i + 5
+	
+def coiso () {
+	int k = 4
+	return k
+}
+
+def cenas () {
+	int j = 42
+	j = call coiso()
+	j = j * 3
+	return  j
+}
+
+if (i < bla) {
+	if (i == 5) {
+		printf("coisas\n")
+	}
+	printf("isto acontece\n")
+} else {
+	i = 4 * 2
+}
+
+while (i < 5) {
+	i = i+1
+}
+
+for (i = 0 ; i < 5 ; i = i + 1) {
+	
+}
+
+repeat {
+	i = i - 1
+} until (i == 0)
+
+
+
+printf(i)
+
+i = call cenas()
+
+printf("O valor do i é: ")
+printf(i)

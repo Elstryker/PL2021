@@ -1,0 +1,16 @@
+int[3][3] i
+int j = 0
+int k
+
+if (j < 3) {
+	printf("coise\n")
+	if (j == 0) {
+		printf("mm\n")
+	}
+} else {
+	printf("miau\n")
+}
+
+for (j = 0 ; j < 3 ; j++) {
+	printf("cenas " + j + " \n  ")
+}

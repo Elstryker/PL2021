@@ -1,0 +1,11 @@
+int i
+int j
+
+while(j < 5) {
+	i = getline()
+	if (i == 3) {
+		j = getline()
+	} else {
+		j = 6
+	}
+}

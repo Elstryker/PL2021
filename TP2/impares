@@ -1,0 +1,19 @@
+def impares() {
+	int j
+	int k
+	int c
+	printf("Quantos números deseja inserir?")
+	j = getline()
+
+	while (k < j) {
+		c = getline()
+		if (c % 2 == 1) {
+			printf("Impar inserido: ")
+			printf(c)
+		}
+		k = k + 1
+	}
+	return 0
+}
+
+call impares()

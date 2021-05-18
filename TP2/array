@@ -1,0 +1,17 @@
+int j = 0
+int k
+int cenas
+int[4] i
+
+i[0] = 3
+i[1] = 4
+i[2] = 5
+i[3] = 6
+
+k = i[j+2]
+cenas = k + i[1]
+
+for (j = 0 ; j < 4 ; j = j + 1) {
+	printf(i[j])
+	printf("\n")
+}

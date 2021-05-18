@@ -1,0 +1,3648 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> inicializacoes declararFuncs codigo
+Rule 2     inicializacoes -> inicializacoes inicializacao
+Rule 3     inicializacoes -> <empty>
+Rule 4     inicializacao -> DEFI ID IGUAL MATI
+Rule 5     inicializacao -> DEFI [ NUM ] ID
+Rule 6     inicializacao -> DEFI [ NUM ] [ NUM ] ID
+Rule 7     inicializacao -> DEFI ID
+Rule 8     inicializacao -> DEFF ID IGUAL MATF
+Rule 9     declararFuncs -> <empty>
+Rule 10    declararFuncs -> declararFuncs declaracao
+Rule 11    MATI -> operando
+Rule 12    MATI -> MATI + operando
+Rule 13    MATI -> MATI - operando
+Rule 14    MATI -> MATI * operando
+Rule 15    MATI -> MATI / operando
+Rule 16    MATI -> MATI % operando
+Rule 17    operando -> NUM
+Rule 18    operando -> ID
+Rule 19    arr -> ID
+Rule 20    operando -> arr [ MATI ]
+Rule 21    operando -> arr [ MATI ] [ MATI ]
+Rule 22    MATF -> FEXP
+Rule 23    MATF -> MATF + FEXP
+Rule 24    FEXP -> FLOAT
+Rule 25    FEXP -> COS ( MATF )
+Rule 26    FEXP -> SIN ( MATF )
+Rule 27    MATF -> MATF - FLOAT
+Rule 28    MATF -> MATF * FLOAT
+Rule 29    MATF -> MATF / FLOAT
+Rule 30    codigo -> <empty>
+Rule 31    codigo -> codigo bloco
+Rule 32    bloco -> arr [ MATI ] IGUAL MATI
+Rule 33    matriz -> arr posicoes
+Rule 34    posicoes -> [ MATI ] [ MATI ]
+Rule 35    bloco -> matriz IGUAL MATI
+Rule 36    bloco -> ID MENOSMENOS
+Rule 37    bloco -> ID MAISMAIS
+Rule 38    bloco -> ID IGUAL bool
+Rule 39    bloco -> ID IGUAL MATI
+Rule 40    callF -> CALL ID ( )
+Rule 41    bloco -> callF
+Rule 42    bloco -> ID IGUAL callF
+Rule 43    declaracao -> defFunc ( ) { inicializacoes codigo return }
+Rule 44    defFunc -> DEF ID
+Rule 45    return -> RETURN NUM
+Rule 46    return -> RETURN ID
+Rule 47    bloco -> PRINTF ( textos )
+Rule 48    textos -> TEXTO
+Rule 49    textos -> TEXTO + arr [ MATI ]
+Rule 50    textos -> TEXTO + array + TEXTO
+Rule 51    array -> arr [ MATI ]
+Rule 52    textos -> TEXTO + ID + TEXTO
+Rule 53    textos -> TEXTO + ID
+Rule 54    bloco -> PRINTF ( MATI )
+Rule 55    bloco -> ID IGUAL GETLINE
+Rule 56    bloco -> arr [ MATI ] IGUAL GETLINE
+Rule 57    bloco -> initIF { codigo } else { codigo }
+Rule 58    bloco -> initIF { codigo }
+Rule 59    initIF -> IF ( bool )
+Rule 60    else -> ELSE
+Rule 61    bloco -> FOR ( cFor ) { codigo }
+Rule 62    cFor -> initFor ; ID IGUAL MATI
+Rule 63    cFor -> initEBool ; incremento
+Rule 64    initFor -> ID IGUAL MATI
+Rule 65    initEBool -> initFor ; bool
+Rule 66    incremento -> ID MENOSMENOS
+Rule 67    incremento -> ID MAISMAIS
+Rule 68    bool -> bool AND boolexp
+Rule 69    bool -> bool OR boolexp
+Rule 70    bool -> boolexp
+Rule 71    boolexp -> MATI MAIORIG MATI
+Rule 72    boolexp -> TRUE
+Rule 73    boolexp -> FALSE
+Rule 74    boolexp -> MATI MENORIG MATI
+Rule 75    boolexp -> MATI MENOR MATI
+Rule 76    boolexp -> MATI MAIOR MATI
+Rule 77    boolexp -> MATI IGUALDADE MATI
+Rule 78    boolexp -> MATI DIFERENTE MATI
+Rule 79    bloco -> repeat { codigo } UNTIL ( bool )
+Rule 80    repeat -> REPEAT
+Rule 81    bloco -> while { codigo }
+Rule 82    while -> labelW ( bool )
+Rule 83    labelW -> WHILE
+
+Terminals, with rules where they appear
+
+%                    : 16
+(                    : 25 26 40 43 47 54 59 61 79 82
+)                    : 25 26 40 43 47 54 59 61 79 82
+*                    : 14 28
++                    : 12 23 49 50 50 52 52 53
+-                    : 13 27
+/                    : 15 29
+;                    : 62 63 65
+AND                  : 68
+CALL                 : 40
+COS                  : 25
+DEF                  : 44
+DEFF                 : 8
+DEFI                 : 4 5 6 7
+DIFERENTE            : 78
+ELSE                 : 60
+FALSE                : 73
+FLOAT                : 24 27 28 29
+FOR                  : 61
+GETLINE              : 55 56
+ID                   : 4 5 6 7 8 18 19 36 37 38 39 40 42 44 46 52 53 55 62 64 66 67
+IF                   : 59
+IGUAL                : 4 8 32 35 38 39 42 55 56 62 64
+IGUALDADE            : 77
+MAIOR                : 76
+MAIORIG              : 71
+MAISMAIS             : 37 67
+MENOR                : 75
+MENORIG              : 74
+MENOSMENOS           : 36 66
+NUM                  : 5 6 6 17 45
+OR                   : 69
+PRINTF               : 47 54
+REPEAT               : 80
+RETURN               : 45 46
+SIN                  : 26
+TEXTO                : 48 49 50 50 52 52 53
+TRUE                 : 72
+UNTIL                : 79
+WHILE                : 83
+[                    : 5 6 6 20 21 21 32 34 34 49 51 56
+]                    : 5 6 6 20 21 21 32 34 34 49 51 56
+error                : 
+{                    : 43 57 57 58 61 79 81
+}                    : 43 57 57 58 61 79 81
+
+Nonterminals, with rules where they appear
+
+FEXP                 : 22 23
+MATF                 : 8 23 25 26 27 28 29
+MATI                 : 4 12 13 14 15 16 20 21 21 32 32 34 34 35 39 49 51 54 56 62 64 71 71 74 74 75 75 76 76 77 77 78 78
+arr                  : 20 21 32 33 49 51 56
+array                : 50
+bloco                : 31
+bool                 : 38 59 65 68 69 79 82
+boolexp              : 68 69 70
+cFor                 : 61
+callF                : 41 42
+codigo               : 1 31 43 57 57 58 61 79 81
+declaracao           : 10
+declararFuncs        : 1 10
+defFunc              : 43
+else                 : 57
+incremento           : 63
+inicializacao        : 2
+inicializacoes       : 1 2 43
+initEBool            : 63
+initFor              : 62 65
+initIF               : 57 58
+labelW               : 82
+matriz               : 35
+operando             : 11 12 13 14 15 16
+posicoes             : 33
+programa             : 0
+repeat               : 79
+return               : 43
+textos               : 47
+while                : 81
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . inicializacoes declararFuncs codigo
+    (2) inicializacoes -> . inicializacoes inicializacao
+    (3) inicializacoes -> .
+
+    DEFI            reduce using rule 3 (inicializacoes -> .)
+    DEFF            reduce using rule 3 (inicializacoes -> .)
+    DEF             reduce using rule 3 (inicializacoes -> .)
+    ID              reduce using rule 3 (inicializacoes -> .)
+    PRINTF          reduce using rule 3 (inicializacoes -> .)
+    FOR             reduce using rule 3 (inicializacoes -> .)
+    CALL            reduce using rule 3 (inicializacoes -> .)
+    IF              reduce using rule 3 (inicializacoes -> .)
+    REPEAT          reduce using rule 3 (inicializacoes -> .)
+    WHILE           reduce using rule 3 (inicializacoes -> .)
+    $end            reduce using rule 3 (inicializacoes -> .)
+
+    programa                       shift and go to state 1
+    inicializacoes                 shift and go to state 2
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> inicializacoes . declararFuncs codigo
+    (2) inicializacoes -> inicializacoes . inicializacao
+    (9) declararFuncs -> .
+    (10) declararFuncs -> . declararFuncs declaracao
+    (4) inicializacao -> . DEFI ID IGUAL MATI
+    (5) inicializacao -> . DEFI [ NUM ] ID
+    (6) inicializacao -> . DEFI [ NUM ] [ NUM ] ID
+    (7) inicializacao -> . DEFI ID
+    (8) inicializacao -> . DEFF ID IGUAL MATF
+
+    DEF             reduce using rule 9 (declararFuncs -> .)
+    ID              reduce using rule 9 (declararFuncs -> .)
+    PRINTF          reduce using rule 9 (declararFuncs -> .)
+    FOR             reduce using rule 9 (declararFuncs -> .)
+    CALL            reduce using rule 9 (declararFuncs -> .)
+    IF              reduce using rule 9 (declararFuncs -> .)
+    REPEAT          reduce using rule 9 (declararFuncs -> .)
+    WHILE           reduce using rule 9 (declararFuncs -> .)
+    $end            reduce using rule 9 (declararFuncs -> .)
+    DEFI            shift and go to state 5
+    DEFF            shift and go to state 6
+
+    declararFuncs                  shift and go to state 3
+    inicializacao                  shift and go to state 4
+
+state 3
+
+    (1) programa -> inicializacoes declararFuncs . codigo
+    (10) declararFuncs -> declararFuncs . declaracao
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+    (43) declaracao -> . defFunc ( ) { inicializacoes codigo return }
+    (44) defFunc -> . DEF ID
+
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+    $end            reduce using rule 30 (codigo -> .)
+    DEF             shift and go to state 10
+
+    codigo                         shift and go to state 7
+    declaracao                     shift and go to state 8
+    defFunc                        shift and go to state 9
+
+state 4
+
+    (2) inicializacoes -> inicializacoes inicializacao .
+
+    DEFI            reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    DEFF            reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    DEF             reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    ID              reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    PRINTF          reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    FOR             reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    CALL            reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    IF              reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    REPEAT          reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    WHILE           reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    $end            reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+    RETURN          reduce using rule 2 (inicializacoes -> inicializacoes inicializacao .)
+
+
+state 5
+
+    (4) inicializacao -> DEFI . ID IGUAL MATI
+    (5) inicializacao -> DEFI . [ NUM ] ID
+    (6) inicializacao -> DEFI . [ NUM ] [ NUM ] ID
+    (7) inicializacao -> DEFI . ID
+
+    ID              shift and go to state 11
+    [               shift and go to state 12
+
+
+state 6
+
+    (8) inicializacao -> DEFF . ID IGUAL MATF
+
+    ID              shift and go to state 13
+
+
+state 7
+
+    (1) programa -> inicializacoes declararFuncs codigo .
+    (31) codigo -> codigo . bloco
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    $end            reduce using rule 1 (programa -> inicializacoes declararFuncs codigo .)
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    initIF                         shift and go to state 20
+    repeat                         shift and go to state 22
+    while                          shift and go to state 23
+    labelW                         shift and go to state 27
+
+state 8
+
+    (10) declararFuncs -> declararFuncs declaracao .
+
+    DEF             reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    ID              reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    PRINTF          reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    FOR             reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    CALL            reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    IF              reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    REPEAT          reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    WHILE           reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+    $end            reduce using rule 10 (declararFuncs -> declararFuncs declaracao .)
+
+
+state 9
+
+    (43) declaracao -> defFunc . ( ) { inicializacoes codigo return }
+
+    (               shift and go to state 29
+
+
+state 10
+
+    (44) defFunc -> DEF . ID
+
+    ID              shift and go to state 30
+
+
+state 11
+
+    (4) inicializacao -> DEFI ID . IGUAL MATI
+    (7) inicializacao -> DEFI ID .
+
+    IGUAL           shift and go to state 31
+    DEFI            reduce using rule 7 (inicializacao -> DEFI ID .)
+    DEFF            reduce using rule 7 (inicializacao -> DEFI ID .)
+    DEF             reduce using rule 7 (inicializacao -> DEFI ID .)
+    ID              reduce using rule 7 (inicializacao -> DEFI ID .)
+    PRINTF          reduce using rule 7 (inicializacao -> DEFI ID .)
+    FOR             reduce using rule 7 (inicializacao -> DEFI ID .)
+    CALL            reduce using rule 7 (inicializacao -> DEFI ID .)
+    IF              reduce using rule 7 (inicializacao -> DEFI ID .)
+    REPEAT          reduce using rule 7 (inicializacao -> DEFI ID .)
+    WHILE           reduce using rule 7 (inicializacao -> DEFI ID .)
+    $end            reduce using rule 7 (inicializacao -> DEFI ID .)
+    RETURN          reduce using rule 7 (inicializacao -> DEFI ID .)
+
+
+state 12
+
+    (5) inicializacao -> DEFI [ . NUM ] ID
+    (6) inicializacao -> DEFI [ . NUM ] [ NUM ] ID
+
+    NUM             shift and go to state 32
+
+
+state 13
+
+    (8) inicializacao -> DEFF ID . IGUAL MATF
+
+    IGUAL           shift and go to state 33
+
+
+state 14
+
+    (31) codigo -> codigo bloco .
+
+    ID              reduce using rule 31 (codigo -> codigo bloco .)
+    PRINTF          reduce using rule 31 (codigo -> codigo bloco .)
+    FOR             reduce using rule 31 (codigo -> codigo bloco .)
+    CALL            reduce using rule 31 (codigo -> codigo bloco .)
+    IF              reduce using rule 31 (codigo -> codigo bloco .)
+    REPEAT          reduce using rule 31 (codigo -> codigo bloco .)
+    WHILE           reduce using rule 31 (codigo -> codigo bloco .)
+    $end            reduce using rule 31 (codigo -> codigo bloco .)
+    }               reduce using rule 31 (codigo -> codigo bloco .)
+    RETURN          reduce using rule 31 (codigo -> codigo bloco .)
+
+
+state 15
+
+    (32) bloco -> arr . [ MATI ] IGUAL MATI
+    (56) bloco -> arr . [ MATI ] IGUAL GETLINE
+    (33) matriz -> arr . posicoes
+    (34) posicoes -> . [ MATI ] [ MATI ]
+
+    [               shift and go to state 34
+
+    posicoes                       shift and go to state 35
+
+state 16
+
+    (35) bloco -> matriz . IGUAL MATI
+
+    IGUAL           shift and go to state 36
+
+
+state 17
+
+    (36) bloco -> ID . MENOSMENOS
+    (37) bloco -> ID . MAISMAIS
+    (38) bloco -> ID . IGUAL bool
+    (39) bloco -> ID . IGUAL MATI
+    (42) bloco -> ID . IGUAL callF
+    (55) bloco -> ID . IGUAL GETLINE
+    (19) arr -> ID .
+
+    MENOSMENOS      shift and go to state 37
+    MAISMAIS        shift and go to state 38
+    IGUAL           shift and go to state 39
+    [               reduce using rule 19 (arr -> ID .)
+
+
+state 18
+
+    (41) bloco -> callF .
+
+    ID              reduce using rule 41 (bloco -> callF .)
+    PRINTF          reduce using rule 41 (bloco -> callF .)
+    FOR             reduce using rule 41 (bloco -> callF .)
+    CALL            reduce using rule 41 (bloco -> callF .)
+    IF              reduce using rule 41 (bloco -> callF .)
+    REPEAT          reduce using rule 41 (bloco -> callF .)
+    WHILE           reduce using rule 41 (bloco -> callF .)
+    $end            reduce using rule 41 (bloco -> callF .)
+    }               reduce using rule 41 (bloco -> callF .)
+    RETURN          reduce using rule 41 (bloco -> callF .)
+
+
+state 19
+
+    (47) bloco -> PRINTF . ( textos )
+    (54) bloco -> PRINTF . ( MATI )
+
+    (               shift and go to state 40
+
+
+state 20
+
+    (57) bloco -> initIF . { codigo } else { codigo }
+    (58) bloco -> initIF . { codigo }
+
+    {               shift and go to state 41
+
+
+state 21
+
+    (61) bloco -> FOR . ( cFor ) { codigo }
+
+    (               shift and go to state 42
+
+
+state 22
+
+    (79) bloco -> repeat . { codigo } UNTIL ( bool )
+
+    {               shift and go to state 43
+
+
+state 23
+
+    (81) bloco -> while . { codigo }
+
+    {               shift and go to state 44
+
+
+state 24
+
+    (40) callF -> CALL . ID ( )
+
+    ID              shift and go to state 45
+
+
+state 25
+
+    (59) initIF -> IF . ( bool )
+
+    (               shift and go to state 46
+
+
+state 26
+
+    (80) repeat -> REPEAT .
+
+    {               reduce using rule 80 (repeat -> REPEAT .)
+
+
+state 27
+
+    (82) while -> labelW . ( bool )
+
+    (               shift and go to state 47
+
+
+state 28
+
+    (83) labelW -> WHILE .
+
+    (               reduce using rule 83 (labelW -> WHILE .)
+
+
+state 29
+
+    (43) declaracao -> defFunc ( . ) { inicializacoes codigo return }
+
+    )               shift and go to state 48
+
+
+state 30
+
+    (44) defFunc -> DEF ID .
+
+    (               reduce using rule 44 (defFunc -> DEF ID .)
+
+
+state 31
+
+    (4) inicializacao -> DEFI ID IGUAL . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 50
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 32
+
+    (5) inicializacao -> DEFI [ NUM . ] ID
+    (6) inicializacao -> DEFI [ NUM . ] [ NUM ] ID
+
+    ]               shift and go to state 54
+
+
+state 33
+
+    (8) inicializacao -> DEFF ID IGUAL . MATF
+    (22) MATF -> . FEXP
+    (23) MATF -> . MATF + FEXP
+    (27) MATF -> . MATF - FLOAT
+    (28) MATF -> . MATF * FLOAT
+    (29) MATF -> . MATF / FLOAT
+    (24) FEXP -> . FLOAT
+    (25) FEXP -> . COS ( MATF )
+    (26) FEXP -> . SIN ( MATF )
+
+    FLOAT           shift and go to state 57
+    COS             shift and go to state 58
+    SIN             shift and go to state 59
+
+    MATF                           shift and go to state 55
+    FEXP                           shift and go to state 56
+
+state 34
+
+    (32) bloco -> arr [ . MATI ] IGUAL MATI
+    (56) bloco -> arr [ . MATI ] IGUAL GETLINE
+    (34) posicoes -> [ . MATI ] [ MATI ]
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    arr                            shift and go to state 53
+    MATI                           shift and go to state 60
+    operando                       shift and go to state 51
+
+state 35
+
+    (33) matriz -> arr posicoes .
+
+    IGUAL           reduce using rule 33 (matriz -> arr posicoes .)
+
+
+state 36
+
+    (35) bloco -> matriz IGUAL . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 61
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 37
+
+    (36) bloco -> ID MENOSMENOS .
+
+    ID              reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    PRINTF          reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    FOR             reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    CALL            reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    IF              reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    REPEAT          reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    WHILE           reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    $end            reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    }               reduce using rule 36 (bloco -> ID MENOSMENOS .)
+    RETURN          reduce using rule 36 (bloco -> ID MENOSMENOS .)
+
+
+state 38
+
+    (37) bloco -> ID MAISMAIS .
+
+    ID              reduce using rule 37 (bloco -> ID MAISMAIS .)
+    PRINTF          reduce using rule 37 (bloco -> ID MAISMAIS .)
+    FOR             reduce using rule 37 (bloco -> ID MAISMAIS .)
+    CALL            reduce using rule 37 (bloco -> ID MAISMAIS .)
+    IF              reduce using rule 37 (bloco -> ID MAISMAIS .)
+    REPEAT          reduce using rule 37 (bloco -> ID MAISMAIS .)
+    WHILE           reduce using rule 37 (bloco -> ID MAISMAIS .)
+    $end            reduce using rule 37 (bloco -> ID MAISMAIS .)
+    }               reduce using rule 37 (bloco -> ID MAISMAIS .)
+    RETURN          reduce using rule 37 (bloco -> ID MAISMAIS .)
+
+
+state 39
+
+    (38) bloco -> ID IGUAL . bool
+    (39) bloco -> ID IGUAL . MATI
+    (42) bloco -> ID IGUAL . callF
+    (55) bloco -> ID IGUAL . GETLINE
+    (68) bool -> . bool AND boolexp
+    (69) bool -> . bool OR boolexp
+    (70) bool -> . boolexp
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (40) callF -> . CALL ID ( )
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    GETLINE         shift and go to state 65
+    CALL            shift and go to state 24
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    bool                           shift and go to state 62
+    MATI                           shift and go to state 63
+    callF                          shift and go to state 64
+    boolexp                        shift and go to state 66
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 40
+
+    (47) bloco -> PRINTF ( . textos )
+    (54) bloco -> PRINTF ( . MATI )
+    (48) textos -> . TEXTO
+    (49) textos -> . TEXTO + arr [ MATI ]
+    (50) textos -> . TEXTO + array + TEXTO
+    (52) textos -> . TEXTO + ID + TEXTO
+    (53) textos -> . TEXTO + ID
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    TEXTO           shift and go to state 71
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    textos                         shift and go to state 69
+    MATI                           shift and go to state 70
+    arr                            shift and go to state 53
+    operando                       shift and go to state 51
+
+state 41
+
+    (57) bloco -> initIF { . codigo } else { codigo }
+    (58) bloco -> initIF { . codigo }
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+
+    }               reduce using rule 30 (codigo -> .)
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+
+    codigo                         shift and go to state 72
+
+state 42
+
+    (61) bloco -> FOR ( . cFor ) { codigo }
+    (62) cFor -> . initFor ; ID IGUAL MATI
+    (63) cFor -> . initEBool ; incremento
+    (64) initFor -> . ID IGUAL MATI
+    (65) initEBool -> . initFor ; bool
+
+    ID              shift and go to state 75
+
+    cFor                           shift and go to state 73
+    initFor                        shift and go to state 74
+    initEBool                      shift and go to state 76
+
+state 43
+
+    (79) bloco -> repeat { . codigo } UNTIL ( bool )
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+
+    }               reduce using rule 30 (codigo -> .)
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+
+    codigo                         shift and go to state 77
+
+state 44
+
+    (81) bloco -> while { . codigo }
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+
+    }               reduce using rule 30 (codigo -> .)
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+
+    codigo                         shift and go to state 78
+
+state 45
+
+    (40) callF -> CALL ID . ( )
+
+    (               shift and go to state 79
+
+
+state 46
+
+    (59) initIF -> IF ( . bool )
+    (68) bool -> . bool AND boolexp
+    (69) bool -> . bool OR boolexp
+    (70) bool -> . boolexp
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    bool                           shift and go to state 80
+    boolexp                        shift and go to state 66
+    MATI                           shift and go to state 81
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 47
+
+    (82) while -> labelW ( . bool )
+    (68) bool -> . bool AND boolexp
+    (69) bool -> . bool OR boolexp
+    (70) bool -> . boolexp
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    bool                           shift and go to state 82
+    boolexp                        shift and go to state 66
+    MATI                           shift and go to state 81
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 48
+
+    (43) declaracao -> defFunc ( ) . { inicializacoes codigo return }
+
+    {               shift and go to state 83
+
+
+state 49
+
+    (18) operando -> ID .
+    (19) arr -> ID .
+
+    +               reduce using rule 18 (operando -> ID .)
+    -               reduce using rule 18 (operando -> ID .)
+    *               reduce using rule 18 (operando -> ID .)
+    /               reduce using rule 18 (operando -> ID .)
+    %               reduce using rule 18 (operando -> ID .)
+    DEFI            reduce using rule 18 (operando -> ID .)
+    DEFF            reduce using rule 18 (operando -> ID .)
+    DEF             reduce using rule 18 (operando -> ID .)
+    ID              reduce using rule 18 (operando -> ID .)
+    PRINTF          reduce using rule 18 (operando -> ID .)
+    FOR             reduce using rule 18 (operando -> ID .)
+    CALL            reduce using rule 18 (operando -> ID .)
+    IF              reduce using rule 18 (operando -> ID .)
+    REPEAT          reduce using rule 18 (operando -> ID .)
+    WHILE           reduce using rule 18 (operando -> ID .)
+    $end            reduce using rule 18 (operando -> ID .)
+    RETURN          reduce using rule 18 (operando -> ID .)
+    ]               reduce using rule 18 (operando -> ID .)
+    }               reduce using rule 18 (operando -> ID .)
+    MAIORIG         reduce using rule 18 (operando -> ID .)
+    MENORIG         reduce using rule 18 (operando -> ID .)
+    MENOR           reduce using rule 18 (operando -> ID .)
+    MAIOR           reduce using rule 18 (operando -> ID .)
+    IGUALDADE       reduce using rule 18 (operando -> ID .)
+    DIFERENTE       reduce using rule 18 (operando -> ID .)
+    )               reduce using rule 18 (operando -> ID .)
+    AND             reduce using rule 18 (operando -> ID .)
+    OR              reduce using rule 18 (operando -> ID .)
+    ;               reduce using rule 18 (operando -> ID .)
+    [               reduce using rule 19 (arr -> ID .)
+
+
+state 50
+
+    (4) inicializacao -> DEFI ID IGUAL MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    DEFI            reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    DEFF            reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    DEF             reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    ID              reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    PRINTF          reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    FOR             reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    CALL            reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    IF              reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    REPEAT          reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    WHILE           reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    $end            reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    RETURN          reduce using rule 4 (inicializacao -> DEFI ID IGUAL MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 51
+
+    (11) MATI -> operando .
+
+    +               reduce using rule 11 (MATI -> operando .)
+    -               reduce using rule 11 (MATI -> operando .)
+    *               reduce using rule 11 (MATI -> operando .)
+    /               reduce using rule 11 (MATI -> operando .)
+    %               reduce using rule 11 (MATI -> operando .)
+    DEFI            reduce using rule 11 (MATI -> operando .)
+    DEFF            reduce using rule 11 (MATI -> operando .)
+    DEF             reduce using rule 11 (MATI -> operando .)
+    ID              reduce using rule 11 (MATI -> operando .)
+    PRINTF          reduce using rule 11 (MATI -> operando .)
+    FOR             reduce using rule 11 (MATI -> operando .)
+    CALL            reduce using rule 11 (MATI -> operando .)
+    IF              reduce using rule 11 (MATI -> operando .)
+    REPEAT          reduce using rule 11 (MATI -> operando .)
+    WHILE           reduce using rule 11 (MATI -> operando .)
+    $end            reduce using rule 11 (MATI -> operando .)
+    RETURN          reduce using rule 11 (MATI -> operando .)
+    ]               reduce using rule 11 (MATI -> operando .)
+    }               reduce using rule 11 (MATI -> operando .)
+    MAIORIG         reduce using rule 11 (MATI -> operando .)
+    MENORIG         reduce using rule 11 (MATI -> operando .)
+    MENOR           reduce using rule 11 (MATI -> operando .)
+    MAIOR           reduce using rule 11 (MATI -> operando .)
+    IGUALDADE       reduce using rule 11 (MATI -> operando .)
+    DIFERENTE       reduce using rule 11 (MATI -> operando .)
+    )               reduce using rule 11 (MATI -> operando .)
+    AND             reduce using rule 11 (MATI -> operando .)
+    OR              reduce using rule 11 (MATI -> operando .)
+    ;               reduce using rule 11 (MATI -> operando .)
+
+
+state 52
+
+    (17) operando -> NUM .
+
+    +               reduce using rule 17 (operando -> NUM .)
+    -               reduce using rule 17 (operando -> NUM .)
+    *               reduce using rule 17 (operando -> NUM .)
+    /               reduce using rule 17 (operando -> NUM .)
+    %               reduce using rule 17 (operando -> NUM .)
+    DEFI            reduce using rule 17 (operando -> NUM .)
+    DEFF            reduce using rule 17 (operando -> NUM .)
+    DEF             reduce using rule 17 (operando -> NUM .)
+    ID              reduce using rule 17 (operando -> NUM .)
+    PRINTF          reduce using rule 17 (operando -> NUM .)
+    FOR             reduce using rule 17 (operando -> NUM .)
+    CALL            reduce using rule 17 (operando -> NUM .)
+    IF              reduce using rule 17 (operando -> NUM .)
+    REPEAT          reduce using rule 17 (operando -> NUM .)
+    WHILE           reduce using rule 17 (operando -> NUM .)
+    $end            reduce using rule 17 (operando -> NUM .)
+    RETURN          reduce using rule 17 (operando -> NUM .)
+    ]               reduce using rule 17 (operando -> NUM .)
+    }               reduce using rule 17 (operando -> NUM .)
+    MAIORIG         reduce using rule 17 (operando -> NUM .)
+    MENORIG         reduce using rule 17 (operando -> NUM .)
+    MENOR           reduce using rule 17 (operando -> NUM .)
+    MAIOR           reduce using rule 17 (operando -> NUM .)
+    IGUALDADE       reduce using rule 17 (operando -> NUM .)
+    DIFERENTE       reduce using rule 17 (operando -> NUM .)
+    )               reduce using rule 17 (operando -> NUM .)
+    AND             reduce using rule 17 (operando -> NUM .)
+    OR              reduce using rule 17 (operando -> NUM .)
+    ;               reduce using rule 17 (operando -> NUM .)
+
+
+state 53
+
+    (20) operando -> arr . [ MATI ]
+    (21) operando -> arr . [ MATI ] [ MATI ]
+
+    [               shift and go to state 89
+
+
+state 54
+
+    (5) inicializacao -> DEFI [ NUM ] . ID
+    (6) inicializacao -> DEFI [ NUM ] . [ NUM ] ID
+
+    ID              shift and go to state 91
+    [               shift and go to state 90
+
+
+state 55
+
+    (8) inicializacao -> DEFF ID IGUAL MATF .
+    (23) MATF -> MATF . + FEXP
+    (27) MATF -> MATF . - FLOAT
+    (28) MATF -> MATF . * FLOAT
+    (29) MATF -> MATF . / FLOAT
+
+    DEFI            reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    DEFF            reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    DEF             reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    ID              reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    PRINTF          reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    FOR             reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    CALL            reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    IF              reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    REPEAT          reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    WHILE           reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    $end            reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    RETURN          reduce using rule 8 (inicializacao -> DEFF ID IGUAL MATF .)
+    +               shift and go to state 92
+    -               shift and go to state 93
+    *               shift and go to state 94
+    /               shift and go to state 95
+
+
+state 56
+
+    (22) MATF -> FEXP .
+
+    +               reduce using rule 22 (MATF -> FEXP .)
+    -               reduce using rule 22 (MATF -> FEXP .)
+    *               reduce using rule 22 (MATF -> FEXP .)
+    /               reduce using rule 22 (MATF -> FEXP .)
+    DEFI            reduce using rule 22 (MATF -> FEXP .)
+    DEFF            reduce using rule 22 (MATF -> FEXP .)
+    DEF             reduce using rule 22 (MATF -> FEXP .)
+    ID              reduce using rule 22 (MATF -> FEXP .)
+    PRINTF          reduce using rule 22 (MATF -> FEXP .)
+    FOR             reduce using rule 22 (MATF -> FEXP .)
+    CALL            reduce using rule 22 (MATF -> FEXP .)
+    IF              reduce using rule 22 (MATF -> FEXP .)
+    REPEAT          reduce using rule 22 (MATF -> FEXP .)
+    WHILE           reduce using rule 22 (MATF -> FEXP .)
+    $end            reduce using rule 22 (MATF -> FEXP .)
+    RETURN          reduce using rule 22 (MATF -> FEXP .)
+    )               reduce using rule 22 (MATF -> FEXP .)
+
+
+state 57
+
+    (24) FEXP -> FLOAT .
+
+    +               reduce using rule 24 (FEXP -> FLOAT .)
+    -               reduce using rule 24 (FEXP -> FLOAT .)
+    *               reduce using rule 24 (FEXP -> FLOAT .)
+    /               reduce using rule 24 (FEXP -> FLOAT .)
+    DEFI            reduce using rule 24 (FEXP -> FLOAT .)
+    DEFF            reduce using rule 24 (FEXP -> FLOAT .)
+    DEF             reduce using rule 24 (FEXP -> FLOAT .)
+    ID              reduce using rule 24 (FEXP -> FLOAT .)
+    PRINTF          reduce using rule 24 (FEXP -> FLOAT .)
+    FOR             reduce using rule 24 (FEXP -> FLOAT .)
+    CALL            reduce using rule 24 (FEXP -> FLOAT .)
+    IF              reduce using rule 24 (FEXP -> FLOAT .)
+    REPEAT          reduce using rule 24 (FEXP -> FLOAT .)
+    WHILE           reduce using rule 24 (FEXP -> FLOAT .)
+    $end            reduce using rule 24 (FEXP -> FLOAT .)
+    RETURN          reduce using rule 24 (FEXP -> FLOAT .)
+    )               reduce using rule 24 (FEXP -> FLOAT .)
+
+
+state 58
+
+    (25) FEXP -> COS . ( MATF )
+
+    (               shift and go to state 96
+
+
+state 59
+
+    (26) FEXP -> SIN . ( MATF )
+
+    (               shift and go to state 97
+
+
+state 60
+
+    (32) bloco -> arr [ MATI . ] IGUAL MATI
+    (56) bloco -> arr [ MATI . ] IGUAL GETLINE
+    (34) posicoes -> [ MATI . ] [ MATI ]
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ]               shift and go to state 98
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 61
+
+    (35) bloco -> matriz IGUAL MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ID              reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    PRINTF          reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    FOR             reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    CALL            reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    IF              reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    REPEAT          reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    WHILE           reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    $end            reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    }               reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    RETURN          reduce using rule 35 (bloco -> matriz IGUAL MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 62
+
+    (38) bloco -> ID IGUAL bool .
+    (68) bool -> bool . AND boolexp
+    (69) bool -> bool . OR boolexp
+
+    ID              reduce using rule 38 (bloco -> ID IGUAL bool .)
+    PRINTF          reduce using rule 38 (bloco -> ID IGUAL bool .)
+    FOR             reduce using rule 38 (bloco -> ID IGUAL bool .)
+    CALL            reduce using rule 38 (bloco -> ID IGUAL bool .)
+    IF              reduce using rule 38 (bloco -> ID IGUAL bool .)
+    REPEAT          reduce using rule 38 (bloco -> ID IGUAL bool .)
+    WHILE           reduce using rule 38 (bloco -> ID IGUAL bool .)
+    $end            reduce using rule 38 (bloco -> ID IGUAL bool .)
+    }               reduce using rule 38 (bloco -> ID IGUAL bool .)
+    RETURN          reduce using rule 38 (bloco -> ID IGUAL bool .)
+    AND             shift and go to state 99
+    OR              shift and go to state 100
+
+
+state 63
+
+    (39) bloco -> ID IGUAL MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+    (71) boolexp -> MATI . MAIORIG MATI
+    (74) boolexp -> MATI . MENORIG MATI
+    (75) boolexp -> MATI . MENOR MATI
+    (76) boolexp -> MATI . MAIOR MATI
+    (77) boolexp -> MATI . IGUALDADE MATI
+    (78) boolexp -> MATI . DIFERENTE MATI
+
+    ID              reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    PRINTF          reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    FOR             reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    CALL            reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    IF              reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    REPEAT          reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    WHILE           reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    $end            reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    }               reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    RETURN          reduce using rule 39 (bloco -> ID IGUAL MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+    MAIORIG         shift and go to state 101
+    MENORIG         shift and go to state 102
+    MENOR           shift and go to state 103
+    MAIOR           shift and go to state 104
+    IGUALDADE       shift and go to state 105
+    DIFERENTE       shift and go to state 106
+
+
+state 64
+
+    (42) bloco -> ID IGUAL callF .
+
+    ID              reduce using rule 42 (bloco -> ID IGUAL callF .)
+    PRINTF          reduce using rule 42 (bloco -> ID IGUAL callF .)
+    FOR             reduce using rule 42 (bloco -> ID IGUAL callF .)
+    CALL            reduce using rule 42 (bloco -> ID IGUAL callF .)
+    IF              reduce using rule 42 (bloco -> ID IGUAL callF .)
+    REPEAT          reduce using rule 42 (bloco -> ID IGUAL callF .)
+    WHILE           reduce using rule 42 (bloco -> ID IGUAL callF .)
+    $end            reduce using rule 42 (bloco -> ID IGUAL callF .)
+    }               reduce using rule 42 (bloco -> ID IGUAL callF .)
+    RETURN          reduce using rule 42 (bloco -> ID IGUAL callF .)
+
+
+state 65
+
+    (55) bloco -> ID IGUAL GETLINE .
+
+    ID              reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    PRINTF          reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    FOR             reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    CALL            reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    IF              reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    REPEAT          reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    WHILE           reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    $end            reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    }               reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+    RETURN          reduce using rule 55 (bloco -> ID IGUAL GETLINE .)
+
+
+state 66
+
+    (70) bool -> boolexp .
+
+    AND             reduce using rule 70 (bool -> boolexp .)
+    OR              reduce using rule 70 (bool -> boolexp .)
+    ID              reduce using rule 70 (bool -> boolexp .)
+    PRINTF          reduce using rule 70 (bool -> boolexp .)
+    FOR             reduce using rule 70 (bool -> boolexp .)
+    CALL            reduce using rule 70 (bool -> boolexp .)
+    IF              reduce using rule 70 (bool -> boolexp .)
+    REPEAT          reduce using rule 70 (bool -> boolexp .)
+    WHILE           reduce using rule 70 (bool -> boolexp .)
+    $end            reduce using rule 70 (bool -> boolexp .)
+    }               reduce using rule 70 (bool -> boolexp .)
+    RETURN          reduce using rule 70 (bool -> boolexp .)
+    )               reduce using rule 70 (bool -> boolexp .)
+    ;               reduce using rule 70 (bool -> boolexp .)
+
+
+state 67
+
+    (72) boolexp -> TRUE .
+
+    AND             reduce using rule 72 (boolexp -> TRUE .)
+    OR              reduce using rule 72 (boolexp -> TRUE .)
+    ID              reduce using rule 72 (boolexp -> TRUE .)
+    PRINTF          reduce using rule 72 (boolexp -> TRUE .)
+    FOR             reduce using rule 72 (boolexp -> TRUE .)
+    CALL            reduce using rule 72 (boolexp -> TRUE .)
+    IF              reduce using rule 72 (boolexp -> TRUE .)
+    REPEAT          reduce using rule 72 (boolexp -> TRUE .)
+    WHILE           reduce using rule 72 (boolexp -> TRUE .)
+    $end            reduce using rule 72 (boolexp -> TRUE .)
+    }               reduce using rule 72 (boolexp -> TRUE .)
+    RETURN          reduce using rule 72 (boolexp -> TRUE .)
+    )               reduce using rule 72 (boolexp -> TRUE .)
+    ;               reduce using rule 72 (boolexp -> TRUE .)
+
+
+state 68
+
+    (73) boolexp -> FALSE .
+
+    AND             reduce using rule 73 (boolexp -> FALSE .)
+    OR              reduce using rule 73 (boolexp -> FALSE .)
+    ID              reduce using rule 73 (boolexp -> FALSE .)
+    PRINTF          reduce using rule 73 (boolexp -> FALSE .)
+    FOR             reduce using rule 73 (boolexp -> FALSE .)
+    CALL            reduce using rule 73 (boolexp -> FALSE .)
+    IF              reduce using rule 73 (boolexp -> FALSE .)
+    REPEAT          reduce using rule 73 (boolexp -> FALSE .)
+    WHILE           reduce using rule 73 (boolexp -> FALSE .)
+    $end            reduce using rule 73 (boolexp -> FALSE .)
+    }               reduce using rule 73 (boolexp -> FALSE .)
+    RETURN          reduce using rule 73 (boolexp -> FALSE .)
+    )               reduce using rule 73 (boolexp -> FALSE .)
+    ;               reduce using rule 73 (boolexp -> FALSE .)
+
+
+state 69
+
+    (47) bloco -> PRINTF ( textos . )
+
+    )               shift and go to state 107
+
+
+state 70
+
+    (54) bloco -> PRINTF ( MATI . )
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    )               shift and go to state 108
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 71
+
+    (48) textos -> TEXTO .
+    (49) textos -> TEXTO . + arr [ MATI ]
+    (50) textos -> TEXTO . + array + TEXTO
+    (52) textos -> TEXTO . + ID + TEXTO
+    (53) textos -> TEXTO . + ID
+
+    )               reduce using rule 48 (textos -> TEXTO .)
+    +               shift and go to state 109
+
+
+state 72
+
+    (57) bloco -> initIF { codigo . } else { codigo }
+    (58) bloco -> initIF { codigo . }
+    (31) codigo -> codigo . bloco
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    }               shift and go to state 110
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    initIF                         shift and go to state 20
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    repeat                         shift and go to state 22
+    while                          shift and go to state 23
+    labelW                         shift and go to state 27
+
+state 73
+
+    (61) bloco -> FOR ( cFor . ) { codigo }
+
+    )               shift and go to state 111
+
+
+state 74
+
+    (62) cFor -> initFor . ; ID IGUAL MATI
+    (65) initEBool -> initFor . ; bool
+
+    ;               shift and go to state 112
+
+
+state 75
+
+    (64) initFor -> ID . IGUAL MATI
+
+    IGUAL           shift and go to state 113
+
+
+state 76
+
+    (63) cFor -> initEBool . ; incremento
+
+    ;               shift and go to state 114
+
+
+state 77
+
+    (79) bloco -> repeat { codigo . } UNTIL ( bool )
+    (31) codigo -> codigo . bloco
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    }               shift and go to state 115
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    repeat                         shift and go to state 22
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    initIF                         shift and go to state 20
+    while                          shift and go to state 23
+    labelW                         shift and go to state 27
+
+state 78
+
+    (81) bloco -> while { codigo . }
+    (31) codigo -> codigo . bloco
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    }               shift and go to state 116
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    while                          shift and go to state 23
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    initIF                         shift and go to state 20
+    repeat                         shift and go to state 22
+    labelW                         shift and go to state 27
+
+state 79
+
+    (40) callF -> CALL ID ( . )
+
+    )               shift and go to state 117
+
+
+state 80
+
+    (59) initIF -> IF ( bool . )
+    (68) bool -> bool . AND boolexp
+    (69) bool -> bool . OR boolexp
+
+    )               shift and go to state 118
+    AND             shift and go to state 99
+    OR              shift and go to state 100
+
+
+state 81
+
+    (71) boolexp -> MATI . MAIORIG MATI
+    (74) boolexp -> MATI . MENORIG MATI
+    (75) boolexp -> MATI . MENOR MATI
+    (76) boolexp -> MATI . MAIOR MATI
+    (77) boolexp -> MATI . IGUALDADE MATI
+    (78) boolexp -> MATI . DIFERENTE MATI
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    MAIORIG         shift and go to state 101
+    MENORIG         shift and go to state 102
+    MENOR           shift and go to state 103
+    MAIOR           shift and go to state 104
+    IGUALDADE       shift and go to state 105
+    DIFERENTE       shift and go to state 106
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 82
+
+    (82) while -> labelW ( bool . )
+    (68) bool -> bool . AND boolexp
+    (69) bool -> bool . OR boolexp
+
+    )               shift and go to state 119
+    AND             shift and go to state 99
+    OR              shift and go to state 100
+
+
+state 83
+
+    (43) declaracao -> defFunc ( ) { . inicializacoes codigo return }
+    (2) inicializacoes -> . inicializacoes inicializacao
+    (3) inicializacoes -> .
+
+    DEFI            reduce using rule 3 (inicializacoes -> .)
+    DEFF            reduce using rule 3 (inicializacoes -> .)
+    RETURN          reduce using rule 3 (inicializacoes -> .)
+    ID              reduce using rule 3 (inicializacoes -> .)
+    PRINTF          reduce using rule 3 (inicializacoes -> .)
+    FOR             reduce using rule 3 (inicializacoes -> .)
+    CALL            reduce using rule 3 (inicializacoes -> .)
+    IF              reduce using rule 3 (inicializacoes -> .)
+    REPEAT          reduce using rule 3 (inicializacoes -> .)
+    WHILE           reduce using rule 3 (inicializacoes -> .)
+
+    inicializacoes                 shift and go to state 120
+
+state 84
+
+    (12) MATI -> MATI + . operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    operando                       shift and go to state 121
+    arr                            shift and go to state 53
+
+state 85
+
+    (13) MATI -> MATI - . operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    operando                       shift and go to state 122
+    arr                            shift and go to state 53
+
+state 86
+
+    (14) MATI -> MATI * . operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    operando                       shift and go to state 123
+    arr                            shift and go to state 53
+
+state 87
+
+    (15) MATI -> MATI / . operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    operando                       shift and go to state 124
+    arr                            shift and go to state 53
+
+state 88
+
+    (16) MATI -> MATI % . operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    operando                       shift and go to state 125
+    arr                            shift and go to state 53
+
+state 89
+
+    (20) operando -> arr [ . MATI ]
+    (21) operando -> arr [ . MATI ] [ MATI ]
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    arr                            shift and go to state 53
+    MATI                           shift and go to state 126
+    operando                       shift and go to state 51
+
+state 90
+
+    (6) inicializacao -> DEFI [ NUM ] [ . NUM ] ID
+
+    NUM             shift and go to state 127
+
+
+state 91
+
+    (5) inicializacao -> DEFI [ NUM ] ID .
+
+    DEFI            reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    DEFF            reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    DEF             reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    ID              reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    PRINTF          reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    FOR             reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    CALL            reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    IF              reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    REPEAT          reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    WHILE           reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    $end            reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+    RETURN          reduce using rule 5 (inicializacao -> DEFI [ NUM ] ID .)
+
+
+state 92
+
+    (23) MATF -> MATF + . FEXP
+    (24) FEXP -> . FLOAT
+    (25) FEXP -> . COS ( MATF )
+    (26) FEXP -> . SIN ( MATF )
+
+    FLOAT           shift and go to state 57
+    COS             shift and go to state 58
+    SIN             shift and go to state 59
+
+    FEXP                           shift and go to state 128
+
+state 93
+
+    (27) MATF -> MATF - . FLOAT
+
+    FLOAT           shift and go to state 129
+
+
+state 94
+
+    (28) MATF -> MATF * . FLOAT
+
+    FLOAT           shift and go to state 130
+
+
+state 95
+
+    (29) MATF -> MATF / . FLOAT
+
+    FLOAT           shift and go to state 131
+
+
+state 96
+
+    (25) FEXP -> COS ( . MATF )
+    (22) MATF -> . FEXP
+    (23) MATF -> . MATF + FEXP
+    (27) MATF -> . MATF - FLOAT
+    (28) MATF -> . MATF * FLOAT
+    (29) MATF -> . MATF / FLOAT
+    (24) FEXP -> . FLOAT
+    (25) FEXP -> . COS ( MATF )
+    (26) FEXP -> . SIN ( MATF )
+
+    FLOAT           shift and go to state 57
+    COS             shift and go to state 58
+    SIN             shift and go to state 59
+
+    MATF                           shift and go to state 132
+    FEXP                           shift and go to state 56
+
+state 97
+
+    (26) FEXP -> SIN ( . MATF )
+    (22) MATF -> . FEXP
+    (23) MATF -> . MATF + FEXP
+    (27) MATF -> . MATF - FLOAT
+    (28) MATF -> . MATF * FLOAT
+    (29) MATF -> . MATF / FLOAT
+    (24) FEXP -> . FLOAT
+    (25) FEXP -> . COS ( MATF )
+    (26) FEXP -> . SIN ( MATF )
+
+    FLOAT           shift and go to state 57
+    COS             shift and go to state 58
+    SIN             shift and go to state 59
+
+    MATF                           shift and go to state 133
+    FEXP                           shift and go to state 56
+
+state 98
+
+    (32) bloco -> arr [ MATI ] . IGUAL MATI
+    (56) bloco -> arr [ MATI ] . IGUAL GETLINE
+    (34) posicoes -> [ MATI ] . [ MATI ]
+
+    IGUAL           shift and go to state 135
+    [               shift and go to state 134
+
+
+state 99
+
+    (68) bool -> bool AND . boolexp
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    boolexp                        shift and go to state 136
+    MATI                           shift and go to state 81
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 100
+
+    (69) bool -> bool OR . boolexp
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    boolexp                        shift and go to state 137
+    MATI                           shift and go to state 81
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 101
+
+    (71) boolexp -> MATI MAIORIG . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 138
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 102
+
+    (74) boolexp -> MATI MENORIG . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 139
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 103
+
+    (75) boolexp -> MATI MENOR . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 140
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 104
+
+    (76) boolexp -> MATI MAIOR . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 141
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 105
+
+    (77) boolexp -> MATI IGUALDADE . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 142
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 106
+
+    (78) boolexp -> MATI DIFERENTE . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 143
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 107
+
+    (47) bloco -> PRINTF ( textos ) .
+
+    ID              reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    PRINTF          reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    FOR             reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    CALL            reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    IF              reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    REPEAT          reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    WHILE           reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    $end            reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    }               reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+    RETURN          reduce using rule 47 (bloco -> PRINTF ( textos ) .)
+
+
+state 108
+
+    (54) bloco -> PRINTF ( MATI ) .
+
+    ID              reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    PRINTF          reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    FOR             reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    CALL            reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    IF              reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    REPEAT          reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    WHILE           reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    $end            reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    }               reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+    RETURN          reduce using rule 54 (bloco -> PRINTF ( MATI ) .)
+
+
+state 109
+
+    (49) textos -> TEXTO + . arr [ MATI ]
+    (50) textos -> TEXTO + . array + TEXTO
+    (52) textos -> TEXTO + . ID + TEXTO
+    (53) textos -> TEXTO + . ID
+    (19) arr -> . ID
+    (51) array -> . arr [ MATI ]
+
+    ID              shift and go to state 146
+
+    arr                            shift and go to state 144
+    array                          shift and go to state 145
+
+state 110
+
+    (57) bloco -> initIF { codigo } . else { codigo }
+    (58) bloco -> initIF { codigo } .
+    (60) else -> . ELSE
+
+    ID              reduce using rule 58 (bloco -> initIF { codigo } .)
+    PRINTF          reduce using rule 58 (bloco -> initIF { codigo } .)
+    FOR             reduce using rule 58 (bloco -> initIF { codigo } .)
+    CALL            reduce using rule 58 (bloco -> initIF { codigo } .)
+    IF              reduce using rule 58 (bloco -> initIF { codigo } .)
+    REPEAT          reduce using rule 58 (bloco -> initIF { codigo } .)
+    WHILE           reduce using rule 58 (bloco -> initIF { codigo } .)
+    $end            reduce using rule 58 (bloco -> initIF { codigo } .)
+    }               reduce using rule 58 (bloco -> initIF { codigo } .)
+    RETURN          reduce using rule 58 (bloco -> initIF { codigo } .)
+    ELSE            shift and go to state 148
+
+    else                           shift and go to state 147
+
+state 111
+
+    (61) bloco -> FOR ( cFor ) . { codigo }
+
+    {               shift and go to state 149
+
+
+state 112
+
+    (62) cFor -> initFor ; . ID IGUAL MATI
+    (65) initEBool -> initFor ; . bool
+    (68) bool -> . bool AND boolexp
+    (69) bool -> . bool OR boolexp
+    (70) bool -> . boolexp
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    ID              shift and go to state 150
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+
+    MATI                           shift and go to state 81
+    bool                           shift and go to state 151
+    boolexp                        shift and go to state 66
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 113
+
+    (64) initFor -> ID IGUAL . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 152
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 114
+
+    (63) cFor -> initEBool ; . incremento
+    (66) incremento -> . ID MENOSMENOS
+    (67) incremento -> . ID MAISMAIS
+
+    ID              shift and go to state 154
+
+    incremento                     shift and go to state 153
+
+state 115
+
+    (79) bloco -> repeat { codigo } . UNTIL ( bool )
+
+    UNTIL           shift and go to state 155
+
+
+state 116
+
+    (81) bloco -> while { codigo } .
+
+    ID              reduce using rule 81 (bloco -> while { codigo } .)
+    PRINTF          reduce using rule 81 (bloco -> while { codigo } .)
+    FOR             reduce using rule 81 (bloco -> while { codigo } .)
+    CALL            reduce using rule 81 (bloco -> while { codigo } .)
+    IF              reduce using rule 81 (bloco -> while { codigo } .)
+    REPEAT          reduce using rule 81 (bloco -> while { codigo } .)
+    WHILE           reduce using rule 81 (bloco -> while { codigo } .)
+    $end            reduce using rule 81 (bloco -> while { codigo } .)
+    }               reduce using rule 81 (bloco -> while { codigo } .)
+    RETURN          reduce using rule 81 (bloco -> while { codigo } .)
+
+
+state 117
+
+    (40) callF -> CALL ID ( ) .
+
+    ID              reduce using rule 40 (callF -> CALL ID ( ) .)
+    PRINTF          reduce using rule 40 (callF -> CALL ID ( ) .)
+    FOR             reduce using rule 40 (callF -> CALL ID ( ) .)
+    CALL            reduce using rule 40 (callF -> CALL ID ( ) .)
+    IF              reduce using rule 40 (callF -> CALL ID ( ) .)
+    REPEAT          reduce using rule 40 (callF -> CALL ID ( ) .)
+    WHILE           reduce using rule 40 (callF -> CALL ID ( ) .)
+    $end            reduce using rule 40 (callF -> CALL ID ( ) .)
+    }               reduce using rule 40 (callF -> CALL ID ( ) .)
+    RETURN          reduce using rule 40 (callF -> CALL ID ( ) .)
+
+
+state 118
+
+    (59) initIF -> IF ( bool ) .
+
+    {               reduce using rule 59 (initIF -> IF ( bool ) .)
+
+
+state 119
+
+    (82) while -> labelW ( bool ) .
+
+    {               reduce using rule 82 (while -> labelW ( bool ) .)
+
+
+state 120
+
+    (43) declaracao -> defFunc ( ) { inicializacoes . codigo return }
+    (2) inicializacoes -> inicializacoes . inicializacao
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+    (4) inicializacao -> . DEFI ID IGUAL MATI
+    (5) inicializacao -> . DEFI [ NUM ] ID
+    (6) inicializacao -> . DEFI [ NUM ] [ NUM ] ID
+    (7) inicializacao -> . DEFI ID
+    (8) inicializacao -> . DEFF ID IGUAL MATF
+
+    RETURN          reduce using rule 30 (codigo -> .)
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+    DEFI            shift and go to state 5
+    DEFF            shift and go to state 6
+
+    codigo                         shift and go to state 156
+    inicializacao                  shift and go to state 4
+
+state 121
+
+    (12) MATI -> MATI + operando .
+
+    +               reduce using rule 12 (MATI -> MATI + operando .)
+    -               reduce using rule 12 (MATI -> MATI + operando .)
+    *               reduce using rule 12 (MATI -> MATI + operando .)
+    /               reduce using rule 12 (MATI -> MATI + operando .)
+    %               reduce using rule 12 (MATI -> MATI + operando .)
+    DEFI            reduce using rule 12 (MATI -> MATI + operando .)
+    DEFF            reduce using rule 12 (MATI -> MATI + operando .)
+    DEF             reduce using rule 12 (MATI -> MATI + operando .)
+    ID              reduce using rule 12 (MATI -> MATI + operando .)
+    PRINTF          reduce using rule 12 (MATI -> MATI + operando .)
+    FOR             reduce using rule 12 (MATI -> MATI + operando .)
+    CALL            reduce using rule 12 (MATI -> MATI + operando .)
+    IF              reduce using rule 12 (MATI -> MATI + operando .)
+    REPEAT          reduce using rule 12 (MATI -> MATI + operando .)
+    WHILE           reduce using rule 12 (MATI -> MATI + operando .)
+    $end            reduce using rule 12 (MATI -> MATI + operando .)
+    RETURN          reduce using rule 12 (MATI -> MATI + operando .)
+    ]               reduce using rule 12 (MATI -> MATI + operando .)
+    }               reduce using rule 12 (MATI -> MATI + operando .)
+    MAIORIG         reduce using rule 12 (MATI -> MATI + operando .)
+    MENORIG         reduce using rule 12 (MATI -> MATI + operando .)
+    MENOR           reduce using rule 12 (MATI -> MATI + operando .)
+    MAIOR           reduce using rule 12 (MATI -> MATI + operando .)
+    IGUALDADE       reduce using rule 12 (MATI -> MATI + operando .)
+    DIFERENTE       reduce using rule 12 (MATI -> MATI + operando .)
+    )               reduce using rule 12 (MATI -> MATI + operando .)
+    AND             reduce using rule 12 (MATI -> MATI + operando .)
+    OR              reduce using rule 12 (MATI -> MATI + operando .)
+    ;               reduce using rule 12 (MATI -> MATI + operando .)
+
+
+state 122
+
+    (13) MATI -> MATI - operando .
+
+    +               reduce using rule 13 (MATI -> MATI - operando .)
+    -               reduce using rule 13 (MATI -> MATI - operando .)
+    *               reduce using rule 13 (MATI -> MATI - operando .)
+    /               reduce using rule 13 (MATI -> MATI - operando .)
+    %               reduce using rule 13 (MATI -> MATI - operando .)
+    DEFI            reduce using rule 13 (MATI -> MATI - operando .)
+    DEFF            reduce using rule 13 (MATI -> MATI - operando .)
+    DEF             reduce using rule 13 (MATI -> MATI - operando .)
+    ID              reduce using rule 13 (MATI -> MATI - operando .)
+    PRINTF          reduce using rule 13 (MATI -> MATI - operando .)
+    FOR             reduce using rule 13 (MATI -> MATI - operando .)
+    CALL            reduce using rule 13 (MATI -> MATI - operando .)
+    IF              reduce using rule 13 (MATI -> MATI - operando .)
+    REPEAT          reduce using rule 13 (MATI -> MATI - operando .)
+    WHILE           reduce using rule 13 (MATI -> MATI - operando .)
+    $end            reduce using rule 13 (MATI -> MATI - operando .)
+    RETURN          reduce using rule 13 (MATI -> MATI - operando .)
+    ]               reduce using rule 13 (MATI -> MATI - operando .)
+    }               reduce using rule 13 (MATI -> MATI - operando .)
+    MAIORIG         reduce using rule 13 (MATI -> MATI - operando .)
+    MENORIG         reduce using rule 13 (MATI -> MATI - operando .)
+    MENOR           reduce using rule 13 (MATI -> MATI - operando .)
+    MAIOR           reduce using rule 13 (MATI -> MATI - operando .)
+    IGUALDADE       reduce using rule 13 (MATI -> MATI - operando .)
+    DIFERENTE       reduce using rule 13 (MATI -> MATI - operando .)
+    )               reduce using rule 13 (MATI -> MATI - operando .)
+    AND             reduce using rule 13 (MATI -> MATI - operando .)
+    OR              reduce using rule 13 (MATI -> MATI - operando .)
+    ;               reduce using rule 13 (MATI -> MATI - operando .)
+
+
+state 123
+
+    (14) MATI -> MATI * operando .
+
+    +               reduce using rule 14 (MATI -> MATI * operando .)
+    -               reduce using rule 14 (MATI -> MATI * operando .)
+    *               reduce using rule 14 (MATI -> MATI * operando .)
+    /               reduce using rule 14 (MATI -> MATI * operando .)
+    %               reduce using rule 14 (MATI -> MATI * operando .)
+    DEFI            reduce using rule 14 (MATI -> MATI * operando .)
+    DEFF            reduce using rule 14 (MATI -> MATI * operando .)
+    DEF             reduce using rule 14 (MATI -> MATI * operando .)
+    ID              reduce using rule 14 (MATI -> MATI * operando .)
+    PRINTF          reduce using rule 14 (MATI -> MATI * operando .)
+    FOR             reduce using rule 14 (MATI -> MATI * operando .)
+    CALL            reduce using rule 14 (MATI -> MATI * operando .)
+    IF              reduce using rule 14 (MATI -> MATI * operando .)
+    REPEAT          reduce using rule 14 (MATI -> MATI * operando .)
+    WHILE           reduce using rule 14 (MATI -> MATI * operando .)
+    $end            reduce using rule 14 (MATI -> MATI * operando .)
+    RETURN          reduce using rule 14 (MATI -> MATI * operando .)
+    ]               reduce using rule 14 (MATI -> MATI * operando .)
+    }               reduce using rule 14 (MATI -> MATI * operando .)
+    MAIORIG         reduce using rule 14 (MATI -> MATI * operando .)
+    MENORIG         reduce using rule 14 (MATI -> MATI * operando .)
+    MENOR           reduce using rule 14 (MATI -> MATI * operando .)
+    MAIOR           reduce using rule 14 (MATI -> MATI * operando .)
+    IGUALDADE       reduce using rule 14 (MATI -> MATI * operando .)
+    DIFERENTE       reduce using rule 14 (MATI -> MATI * operando .)
+    )               reduce using rule 14 (MATI -> MATI * operando .)
+    AND             reduce using rule 14 (MATI -> MATI * operando .)
+    OR              reduce using rule 14 (MATI -> MATI * operando .)
+    ;               reduce using rule 14 (MATI -> MATI * operando .)
+
+
+state 124
+
+    (15) MATI -> MATI / operando .
+
+    +               reduce using rule 15 (MATI -> MATI / operando .)
+    -               reduce using rule 15 (MATI -> MATI / operando .)
+    *               reduce using rule 15 (MATI -> MATI / operando .)
+    /               reduce using rule 15 (MATI -> MATI / operando .)
+    %               reduce using rule 15 (MATI -> MATI / operando .)
+    DEFI            reduce using rule 15 (MATI -> MATI / operando .)
+    DEFF            reduce using rule 15 (MATI -> MATI / operando .)
+    DEF             reduce using rule 15 (MATI -> MATI / operando .)
+    ID              reduce using rule 15 (MATI -> MATI / operando .)
+    PRINTF          reduce using rule 15 (MATI -> MATI / operando .)
+    FOR             reduce using rule 15 (MATI -> MATI / operando .)
+    CALL            reduce using rule 15 (MATI -> MATI / operando .)
+    IF              reduce using rule 15 (MATI -> MATI / operando .)
+    REPEAT          reduce using rule 15 (MATI -> MATI / operando .)
+    WHILE           reduce using rule 15 (MATI -> MATI / operando .)
+    $end            reduce using rule 15 (MATI -> MATI / operando .)
+    RETURN          reduce using rule 15 (MATI -> MATI / operando .)
+    ]               reduce using rule 15 (MATI -> MATI / operando .)
+    }               reduce using rule 15 (MATI -> MATI / operando .)
+    MAIORIG         reduce using rule 15 (MATI -> MATI / operando .)
+    MENORIG         reduce using rule 15 (MATI -> MATI / operando .)
+    MENOR           reduce using rule 15 (MATI -> MATI / operando .)
+    MAIOR           reduce using rule 15 (MATI -> MATI / operando .)
+    IGUALDADE       reduce using rule 15 (MATI -> MATI / operando .)
+    DIFERENTE       reduce using rule 15 (MATI -> MATI / operando .)
+    )               reduce using rule 15 (MATI -> MATI / operando .)
+    AND             reduce using rule 15 (MATI -> MATI / operando .)
+    OR              reduce using rule 15 (MATI -> MATI / operando .)
+    ;               reduce using rule 15 (MATI -> MATI / operando .)
+
+
+state 125
+
+    (16) MATI -> MATI % operando .
+
+    +               reduce using rule 16 (MATI -> MATI % operando .)
+    -               reduce using rule 16 (MATI -> MATI % operando .)
+    *               reduce using rule 16 (MATI -> MATI % operando .)
+    /               reduce using rule 16 (MATI -> MATI % operando .)
+    %               reduce using rule 16 (MATI -> MATI % operando .)
+    DEFI            reduce using rule 16 (MATI -> MATI % operando .)
+    DEFF            reduce using rule 16 (MATI -> MATI % operando .)
+    DEF             reduce using rule 16 (MATI -> MATI % operando .)
+    ID              reduce using rule 16 (MATI -> MATI % operando .)
+    PRINTF          reduce using rule 16 (MATI -> MATI % operando .)
+    FOR             reduce using rule 16 (MATI -> MATI % operando .)
+    CALL            reduce using rule 16 (MATI -> MATI % operando .)
+    IF              reduce using rule 16 (MATI -> MATI % operando .)
+    REPEAT          reduce using rule 16 (MATI -> MATI % operando .)
+    WHILE           reduce using rule 16 (MATI -> MATI % operando .)
+    $end            reduce using rule 16 (MATI -> MATI % operando .)
+    RETURN          reduce using rule 16 (MATI -> MATI % operando .)
+    ]               reduce using rule 16 (MATI -> MATI % operando .)
+    }               reduce using rule 16 (MATI -> MATI % operando .)
+    MAIORIG         reduce using rule 16 (MATI -> MATI % operando .)
+    MENORIG         reduce using rule 16 (MATI -> MATI % operando .)
+    MENOR           reduce using rule 16 (MATI -> MATI % operando .)
+    MAIOR           reduce using rule 16 (MATI -> MATI % operando .)
+    IGUALDADE       reduce using rule 16 (MATI -> MATI % operando .)
+    DIFERENTE       reduce using rule 16 (MATI -> MATI % operando .)
+    )               reduce using rule 16 (MATI -> MATI % operando .)
+    AND             reduce using rule 16 (MATI -> MATI % operando .)
+    OR              reduce using rule 16 (MATI -> MATI % operando .)
+    ;               reduce using rule 16 (MATI -> MATI % operando .)
+
+
+state 126
+
+    (20) operando -> arr [ MATI . ]
+    (21) operando -> arr [ MATI . ] [ MATI ]
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ]               shift and go to state 157
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 127
+
+    (6) inicializacao -> DEFI [ NUM ] [ NUM . ] ID
+
+    ]               shift and go to state 158
+
+
+state 128
+
+    (23) MATF -> MATF + FEXP .
+
+    +               reduce using rule 23 (MATF -> MATF + FEXP .)
+    -               reduce using rule 23 (MATF -> MATF + FEXP .)
+    *               reduce using rule 23 (MATF -> MATF + FEXP .)
+    /               reduce using rule 23 (MATF -> MATF + FEXP .)
+    DEFI            reduce using rule 23 (MATF -> MATF + FEXP .)
+    DEFF            reduce using rule 23 (MATF -> MATF + FEXP .)
+    DEF             reduce using rule 23 (MATF -> MATF + FEXP .)
+    ID              reduce using rule 23 (MATF -> MATF + FEXP .)
+    PRINTF          reduce using rule 23 (MATF -> MATF + FEXP .)
+    FOR             reduce using rule 23 (MATF -> MATF + FEXP .)
+    CALL            reduce using rule 23 (MATF -> MATF + FEXP .)
+    IF              reduce using rule 23 (MATF -> MATF + FEXP .)
+    REPEAT          reduce using rule 23 (MATF -> MATF + FEXP .)
+    WHILE           reduce using rule 23 (MATF -> MATF + FEXP .)
+    $end            reduce using rule 23 (MATF -> MATF + FEXP .)
+    RETURN          reduce using rule 23 (MATF -> MATF + FEXP .)
+    )               reduce using rule 23 (MATF -> MATF + FEXP .)
+
+
+state 129
+
+    (27) MATF -> MATF - FLOAT .
+
+    +               reduce using rule 27 (MATF -> MATF - FLOAT .)
+    -               reduce using rule 27 (MATF -> MATF - FLOAT .)
+    *               reduce using rule 27 (MATF -> MATF - FLOAT .)
+    /               reduce using rule 27 (MATF -> MATF - FLOAT .)
+    DEFI            reduce using rule 27 (MATF -> MATF - FLOAT .)
+    DEFF            reduce using rule 27 (MATF -> MATF - FLOAT .)
+    DEF             reduce using rule 27 (MATF -> MATF - FLOAT .)
+    ID              reduce using rule 27 (MATF -> MATF - FLOAT .)
+    PRINTF          reduce using rule 27 (MATF -> MATF - FLOAT .)
+    FOR             reduce using rule 27 (MATF -> MATF - FLOAT .)
+    CALL            reduce using rule 27 (MATF -> MATF - FLOAT .)
+    IF              reduce using rule 27 (MATF -> MATF - FLOAT .)
+    REPEAT          reduce using rule 27 (MATF -> MATF - FLOAT .)
+    WHILE           reduce using rule 27 (MATF -> MATF - FLOAT .)
+    $end            reduce using rule 27 (MATF -> MATF - FLOAT .)
+    RETURN          reduce using rule 27 (MATF -> MATF - FLOAT .)
+    )               reduce using rule 27 (MATF -> MATF - FLOAT .)
+
+
+state 130
+
+    (28) MATF -> MATF * FLOAT .
+
+    +               reduce using rule 28 (MATF -> MATF * FLOAT .)
+    -               reduce using rule 28 (MATF -> MATF * FLOAT .)
+    *               reduce using rule 28 (MATF -> MATF * FLOAT .)
+    /               reduce using rule 28 (MATF -> MATF * FLOAT .)
+    DEFI            reduce using rule 28 (MATF -> MATF * FLOAT .)
+    DEFF            reduce using rule 28 (MATF -> MATF * FLOAT .)
+    DEF             reduce using rule 28 (MATF -> MATF * FLOAT .)
+    ID              reduce using rule 28 (MATF -> MATF * FLOAT .)
+    PRINTF          reduce using rule 28 (MATF -> MATF * FLOAT .)
+    FOR             reduce using rule 28 (MATF -> MATF * FLOAT .)
+    CALL            reduce using rule 28 (MATF -> MATF * FLOAT .)
+    IF              reduce using rule 28 (MATF -> MATF * FLOAT .)
+    REPEAT          reduce using rule 28 (MATF -> MATF * FLOAT .)
+    WHILE           reduce using rule 28 (MATF -> MATF * FLOAT .)
+    $end            reduce using rule 28 (MATF -> MATF * FLOAT .)
+    RETURN          reduce using rule 28 (MATF -> MATF * FLOAT .)
+    )               reduce using rule 28 (MATF -> MATF * FLOAT .)
+
+
+state 131
+
+    (29) MATF -> MATF / FLOAT .
+
+    +               reduce using rule 29 (MATF -> MATF / FLOAT .)
+    -               reduce using rule 29 (MATF -> MATF / FLOAT .)
+    *               reduce using rule 29 (MATF -> MATF / FLOAT .)
+    /               reduce using rule 29 (MATF -> MATF / FLOAT .)
+    DEFI            reduce using rule 29 (MATF -> MATF / FLOAT .)
+    DEFF            reduce using rule 29 (MATF -> MATF / FLOAT .)
+    DEF             reduce using rule 29 (MATF -> MATF / FLOAT .)
+    ID              reduce using rule 29 (MATF -> MATF / FLOAT .)
+    PRINTF          reduce using rule 29 (MATF -> MATF / FLOAT .)
+    FOR             reduce using rule 29 (MATF -> MATF / FLOAT .)
+    CALL            reduce using rule 29 (MATF -> MATF / FLOAT .)
+    IF              reduce using rule 29 (MATF -> MATF / FLOAT .)
+    REPEAT          reduce using rule 29 (MATF -> MATF / FLOAT .)
+    WHILE           reduce using rule 29 (MATF -> MATF / FLOAT .)
+    $end            reduce using rule 29 (MATF -> MATF / FLOAT .)
+    RETURN          reduce using rule 29 (MATF -> MATF / FLOAT .)
+    )               reduce using rule 29 (MATF -> MATF / FLOAT .)
+
+
+state 132
+
+    (25) FEXP -> COS ( MATF . )
+    (23) MATF -> MATF . + FEXP
+    (27) MATF -> MATF . - FLOAT
+    (28) MATF -> MATF . * FLOAT
+    (29) MATF -> MATF . / FLOAT
+
+    )               shift and go to state 159
+    +               shift and go to state 92
+    -               shift and go to state 93
+    *               shift and go to state 94
+    /               shift and go to state 95
+
+
+state 133
+
+    (26) FEXP -> SIN ( MATF . )
+    (23) MATF -> MATF . + FEXP
+    (27) MATF -> MATF . - FLOAT
+    (28) MATF -> MATF . * FLOAT
+    (29) MATF -> MATF . / FLOAT
+
+    )               shift and go to state 160
+    +               shift and go to state 92
+    -               shift and go to state 93
+    *               shift and go to state 94
+    /               shift and go to state 95
+
+
+state 134
+
+    (34) posicoes -> [ MATI ] [ . MATI ]
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 161
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 135
+
+    (32) bloco -> arr [ MATI ] IGUAL . MATI
+    (56) bloco -> arr [ MATI ] IGUAL . GETLINE
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    GETLINE         shift and go to state 163
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    arr                            shift and go to state 53
+    MATI                           shift and go to state 162
+    operando                       shift and go to state 51
+
+state 136
+
+    (68) bool -> bool AND boolexp .
+
+    AND             reduce using rule 68 (bool -> bool AND boolexp .)
+    OR              reduce using rule 68 (bool -> bool AND boolexp .)
+    ID              reduce using rule 68 (bool -> bool AND boolexp .)
+    PRINTF          reduce using rule 68 (bool -> bool AND boolexp .)
+    FOR             reduce using rule 68 (bool -> bool AND boolexp .)
+    CALL            reduce using rule 68 (bool -> bool AND boolexp .)
+    IF              reduce using rule 68 (bool -> bool AND boolexp .)
+    REPEAT          reduce using rule 68 (bool -> bool AND boolexp .)
+    WHILE           reduce using rule 68 (bool -> bool AND boolexp .)
+    $end            reduce using rule 68 (bool -> bool AND boolexp .)
+    }               reduce using rule 68 (bool -> bool AND boolexp .)
+    RETURN          reduce using rule 68 (bool -> bool AND boolexp .)
+    )               reduce using rule 68 (bool -> bool AND boolexp .)
+    ;               reduce using rule 68 (bool -> bool AND boolexp .)
+
+
+state 137
+
+    (69) bool -> bool OR boolexp .
+
+    AND             reduce using rule 69 (bool -> bool OR boolexp .)
+    OR              reduce using rule 69 (bool -> bool OR boolexp .)
+    ID              reduce using rule 69 (bool -> bool OR boolexp .)
+    PRINTF          reduce using rule 69 (bool -> bool OR boolexp .)
+    FOR             reduce using rule 69 (bool -> bool OR boolexp .)
+    CALL            reduce using rule 69 (bool -> bool OR boolexp .)
+    IF              reduce using rule 69 (bool -> bool OR boolexp .)
+    REPEAT          reduce using rule 69 (bool -> bool OR boolexp .)
+    WHILE           reduce using rule 69 (bool -> bool OR boolexp .)
+    $end            reduce using rule 69 (bool -> bool OR boolexp .)
+    }               reduce using rule 69 (bool -> bool OR boolexp .)
+    RETURN          reduce using rule 69 (bool -> bool OR boolexp .)
+    )               reduce using rule 69 (bool -> bool OR boolexp .)
+    ;               reduce using rule 69 (bool -> bool OR boolexp .)
+
+
+state 138
+
+    (71) boolexp -> MATI MAIORIG MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    AND             reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    OR              reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    ID              reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    PRINTF          reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    FOR             reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    CALL            reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    IF              reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    REPEAT          reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    WHILE           reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    $end            reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    }               reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    RETURN          reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    )               reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    ;               reduce using rule 71 (boolexp -> MATI MAIORIG MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 139
+
+    (74) boolexp -> MATI MENORIG MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    AND             reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    OR              reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    ID              reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    PRINTF          reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    FOR             reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    CALL            reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    IF              reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    REPEAT          reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    WHILE           reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    $end            reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    }               reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    RETURN          reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    )               reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    ;               reduce using rule 74 (boolexp -> MATI MENORIG MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 140
+
+    (75) boolexp -> MATI MENOR MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    AND             reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    OR              reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    ID              reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    PRINTF          reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    FOR             reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    CALL            reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    IF              reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    REPEAT          reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    WHILE           reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    $end            reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    }               reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    RETURN          reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    )               reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    ;               reduce using rule 75 (boolexp -> MATI MENOR MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 141
+
+    (76) boolexp -> MATI MAIOR MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    AND             reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    OR              reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    ID              reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    PRINTF          reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    FOR             reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    CALL            reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    IF              reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    REPEAT          reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    WHILE           reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    $end            reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    }               reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    RETURN          reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    )               reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    ;               reduce using rule 76 (boolexp -> MATI MAIOR MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 142
+
+    (77) boolexp -> MATI IGUALDADE MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    AND             reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    OR              reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    ID              reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    PRINTF          reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    FOR             reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    CALL            reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    IF              reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    REPEAT          reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    WHILE           reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    $end            reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    }               reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    RETURN          reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    )               reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    ;               reduce using rule 77 (boolexp -> MATI IGUALDADE MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 143
+
+    (78) boolexp -> MATI DIFERENTE MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    AND             reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    OR              reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    ID              reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    PRINTF          reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    FOR             reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    CALL            reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    IF              reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    REPEAT          reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    WHILE           reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    $end            reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    }               reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    RETURN          reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    )               reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    ;               reduce using rule 78 (boolexp -> MATI DIFERENTE MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 144
+
+    (49) textos -> TEXTO + arr . [ MATI ]
+    (51) array -> arr . [ MATI ]
+
+    [               shift and go to state 164
+
+
+state 145
+
+    (50) textos -> TEXTO + array . + TEXTO
+
+    +               shift and go to state 165
+
+
+state 146
+
+    (52) textos -> TEXTO + ID . + TEXTO
+    (53) textos -> TEXTO + ID .
+    (19) arr -> ID .
+
+    +               shift and go to state 166
+    )               reduce using rule 53 (textos -> TEXTO + ID .)
+    [               reduce using rule 19 (arr -> ID .)
+
+
+state 147
+
+    (57) bloco -> initIF { codigo } else . { codigo }
+
+    {               shift and go to state 167
+
+
+state 148
+
+    (60) else -> ELSE .
+
+    {               reduce using rule 60 (else -> ELSE .)
+
+
+state 149
+
+    (61) bloco -> FOR ( cFor ) { . codigo }
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+
+    }               reduce using rule 30 (codigo -> .)
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+
+    codigo                         shift and go to state 168
+
+state 150
+
+    (62) cFor -> initFor ; ID . IGUAL MATI
+    (18) operando -> ID .
+    (19) arr -> ID .
+
+    IGUAL           shift and go to state 169
+    MAIORIG         reduce using rule 18 (operando -> ID .)
+    MENORIG         reduce using rule 18 (operando -> ID .)
+    MENOR           reduce using rule 18 (operando -> ID .)
+    MAIOR           reduce using rule 18 (operando -> ID .)
+    IGUALDADE       reduce using rule 18 (operando -> ID .)
+    DIFERENTE       reduce using rule 18 (operando -> ID .)
+    +               reduce using rule 18 (operando -> ID .)
+    -               reduce using rule 18 (operando -> ID .)
+    *               reduce using rule 18 (operando -> ID .)
+    /               reduce using rule 18 (operando -> ID .)
+    %               reduce using rule 18 (operando -> ID .)
+    [               reduce using rule 19 (arr -> ID .)
+
+
+state 151
+
+    (65) initEBool -> initFor ; bool .
+    (68) bool -> bool . AND boolexp
+    (69) bool -> bool . OR boolexp
+
+    ;               reduce using rule 65 (initEBool -> initFor ; bool .)
+    AND             shift and go to state 99
+    OR              shift and go to state 100
+
+
+state 152
+
+    (64) initFor -> ID IGUAL MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ;               reduce using rule 64 (initFor -> ID IGUAL MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 153
+
+    (63) cFor -> initEBool ; incremento .
+
+    )               reduce using rule 63 (cFor -> initEBool ; incremento .)
+
+
+state 154
+
+    (66) incremento -> ID . MENOSMENOS
+    (67) incremento -> ID . MAISMAIS
+
+    MENOSMENOS      shift and go to state 170
+    MAISMAIS        shift and go to state 171
+
+
+state 155
+
+    (79) bloco -> repeat { codigo } UNTIL . ( bool )
+
+    (               shift and go to state 172
+
+
+state 156
+
+    (43) declaracao -> defFunc ( ) { inicializacoes codigo . return }
+    (31) codigo -> codigo . bloco
+    (45) return -> . RETURN NUM
+    (46) return -> . RETURN ID
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    RETURN          shift and go to state 174
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    return                         shift and go to state 173
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    initIF                         shift and go to state 20
+    repeat                         shift and go to state 22
+    while                          shift and go to state 23
+    labelW                         shift and go to state 27
+
+state 157
+
+    (20) operando -> arr [ MATI ] .
+    (21) operando -> arr [ MATI ] . [ MATI ]
+
+    +               reduce using rule 20 (operando -> arr [ MATI ] .)
+    -               reduce using rule 20 (operando -> arr [ MATI ] .)
+    *               reduce using rule 20 (operando -> arr [ MATI ] .)
+    /               reduce using rule 20 (operando -> arr [ MATI ] .)
+    %               reduce using rule 20 (operando -> arr [ MATI ] .)
+    DEFI            reduce using rule 20 (operando -> arr [ MATI ] .)
+    DEFF            reduce using rule 20 (operando -> arr [ MATI ] .)
+    DEF             reduce using rule 20 (operando -> arr [ MATI ] .)
+    ID              reduce using rule 20 (operando -> arr [ MATI ] .)
+    PRINTF          reduce using rule 20 (operando -> arr [ MATI ] .)
+    FOR             reduce using rule 20 (operando -> arr [ MATI ] .)
+    CALL            reduce using rule 20 (operando -> arr [ MATI ] .)
+    IF              reduce using rule 20 (operando -> arr [ MATI ] .)
+    REPEAT          reduce using rule 20 (operando -> arr [ MATI ] .)
+    WHILE           reduce using rule 20 (operando -> arr [ MATI ] .)
+    $end            reduce using rule 20 (operando -> arr [ MATI ] .)
+    RETURN          reduce using rule 20 (operando -> arr [ MATI ] .)
+    ]               reduce using rule 20 (operando -> arr [ MATI ] .)
+    }               reduce using rule 20 (operando -> arr [ MATI ] .)
+    MAIORIG         reduce using rule 20 (operando -> arr [ MATI ] .)
+    MENORIG         reduce using rule 20 (operando -> arr [ MATI ] .)
+    MENOR           reduce using rule 20 (operando -> arr [ MATI ] .)
+    MAIOR           reduce using rule 20 (operando -> arr [ MATI ] .)
+    IGUALDADE       reduce using rule 20 (operando -> arr [ MATI ] .)
+    DIFERENTE       reduce using rule 20 (operando -> arr [ MATI ] .)
+    )               reduce using rule 20 (operando -> arr [ MATI ] .)
+    AND             reduce using rule 20 (operando -> arr [ MATI ] .)
+    OR              reduce using rule 20 (operando -> arr [ MATI ] .)
+    ;               reduce using rule 20 (operando -> arr [ MATI ] .)
+    [               shift and go to state 175
+
+
+state 158
+
+    (6) inicializacao -> DEFI [ NUM ] [ NUM ] . ID
+
+    ID              shift and go to state 176
+
+
+state 159
+
+    (25) FEXP -> COS ( MATF ) .
+
+    +               reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    -               reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    *               reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    /               reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    DEFI            reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    DEFF            reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    DEF             reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    ID              reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    PRINTF          reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    FOR             reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    CALL            reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    IF              reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    REPEAT          reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    WHILE           reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    $end            reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    RETURN          reduce using rule 25 (FEXP -> COS ( MATF ) .)
+    )               reduce using rule 25 (FEXP -> COS ( MATF ) .)
+
+
+state 160
+
+    (26) FEXP -> SIN ( MATF ) .
+
+    +               reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    -               reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    *               reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    /               reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    DEFI            reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    DEFF            reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    DEF             reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    ID              reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    PRINTF          reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    FOR             reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    CALL            reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    IF              reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    REPEAT          reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    WHILE           reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    $end            reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    RETURN          reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+    )               reduce using rule 26 (FEXP -> SIN ( MATF ) .)
+
+
+state 161
+
+    (34) posicoes -> [ MATI ] [ MATI . ]
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ]               shift and go to state 177
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 162
+
+    (32) bloco -> arr [ MATI ] IGUAL MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ID              reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    PRINTF          reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    FOR             reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    CALL            reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    IF              reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    REPEAT          reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    WHILE           reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    $end            reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    }               reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    RETURN          reduce using rule 32 (bloco -> arr [ MATI ] IGUAL MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 163
+
+    (56) bloco -> arr [ MATI ] IGUAL GETLINE .
+
+    ID              reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    PRINTF          reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    FOR             reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    CALL            reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    IF              reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    REPEAT          reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    WHILE           reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    $end            reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    }               reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+    RETURN          reduce using rule 56 (bloco -> arr [ MATI ] IGUAL GETLINE .)
+
+
+state 164
+
+    (49) textos -> TEXTO + arr [ . MATI ]
+    (51) array -> arr [ . MATI ]
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    arr                            shift and go to state 53
+    MATI                           shift and go to state 178
+    operando                       shift and go to state 51
+
+state 165
+
+    (50) textos -> TEXTO + array + . TEXTO
+
+    TEXTO           shift and go to state 179
+
+
+state 166
+
+    (52) textos -> TEXTO + ID + . TEXTO
+
+    TEXTO           shift and go to state 180
+
+
+state 167
+
+    (57) bloco -> initIF { codigo } else { . codigo }
+    (30) codigo -> .
+    (31) codigo -> . codigo bloco
+
+    }               reduce using rule 30 (codigo -> .)
+    ID              reduce using rule 30 (codigo -> .)
+    PRINTF          reduce using rule 30 (codigo -> .)
+    FOR             reduce using rule 30 (codigo -> .)
+    CALL            reduce using rule 30 (codigo -> .)
+    IF              reduce using rule 30 (codigo -> .)
+    REPEAT          reduce using rule 30 (codigo -> .)
+    WHILE           reduce using rule 30 (codigo -> .)
+
+    codigo                         shift and go to state 181
+
+state 168
+
+    (61) bloco -> FOR ( cFor ) { codigo . }
+    (31) codigo -> codigo . bloco
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    }               shift and go to state 182
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    initIF                         shift and go to state 20
+    repeat                         shift and go to state 22
+    while                          shift and go to state 23
+    labelW                         shift and go to state 27
+
+state 169
+
+    (62) cFor -> initFor ; ID IGUAL . MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    MATI                           shift and go to state 183
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 170
+
+    (66) incremento -> ID MENOSMENOS .
+
+    )               reduce using rule 66 (incremento -> ID MENOSMENOS .)
+
+
+state 171
+
+    (67) incremento -> ID MAISMAIS .
+
+    )               reduce using rule 67 (incremento -> ID MAISMAIS .)
+
+
+state 172
+
+    (79) bloco -> repeat { codigo } UNTIL ( . bool )
+    (68) bool -> . bool AND boolexp
+    (69) bool -> . bool OR boolexp
+    (70) bool -> . boolexp
+    (71) boolexp -> . MATI MAIORIG MATI
+    (72) boolexp -> . TRUE
+    (73) boolexp -> . FALSE
+    (74) boolexp -> . MATI MENORIG MATI
+    (75) boolexp -> . MATI MENOR MATI
+    (76) boolexp -> . MATI MAIOR MATI
+    (77) boolexp -> . MATI IGUALDADE MATI
+    (78) boolexp -> . MATI DIFERENTE MATI
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    TRUE            shift and go to state 67
+    FALSE           shift and go to state 68
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    bool                           shift and go to state 184
+    boolexp                        shift and go to state 66
+    MATI                           shift and go to state 81
+    operando                       shift and go to state 51
+    arr                            shift and go to state 53
+
+state 173
+
+    (43) declaracao -> defFunc ( ) { inicializacoes codigo return . }
+
+    }               shift and go to state 185
+
+
+state 174
+
+    (45) return -> RETURN . NUM
+    (46) return -> RETURN . ID
+
+    NUM             shift and go to state 186
+    ID              shift and go to state 187
+
+
+state 175
+
+    (21) operando -> arr [ MATI ] [ . MATI ]
+    (11) MATI -> . operando
+    (12) MATI -> . MATI + operando
+    (13) MATI -> . MATI - operando
+    (14) MATI -> . MATI * operando
+    (15) MATI -> . MATI / operando
+    (16) MATI -> . MATI % operando
+    (17) operando -> . NUM
+    (18) operando -> . ID
+    (20) operando -> . arr [ MATI ]
+    (21) operando -> . arr [ MATI ] [ MATI ]
+    (19) arr -> . ID
+
+    NUM             shift and go to state 52
+    ID              shift and go to state 49
+
+    arr                            shift and go to state 53
+    MATI                           shift and go to state 188
+    operando                       shift and go to state 51
+
+state 176
+
+    (6) inicializacao -> DEFI [ NUM ] [ NUM ] ID .
+
+    DEFI            reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    DEFF            reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    DEF             reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    ID              reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    PRINTF          reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    FOR             reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    CALL            reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    IF              reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    REPEAT          reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    WHILE           reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    $end            reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+    RETURN          reduce using rule 6 (inicializacao -> DEFI [ NUM ] [ NUM ] ID .)
+
+
+state 177
+
+    (34) posicoes -> [ MATI ] [ MATI ] .
+
+    IGUAL           reduce using rule 34 (posicoes -> [ MATI ] [ MATI ] .)
+
+
+state 178
+
+    (49) textos -> TEXTO + arr [ MATI . ]
+    (51) array -> arr [ MATI . ]
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ]               shift and go to state 189
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 179
+
+    (50) textos -> TEXTO + array + TEXTO .
+
+    )               reduce using rule 50 (textos -> TEXTO + array + TEXTO .)
+
+
+state 180
+
+    (52) textos -> TEXTO + ID + TEXTO .
+
+    )               reduce using rule 52 (textos -> TEXTO + ID + TEXTO .)
+
+
+state 181
+
+    (57) bloco -> initIF { codigo } else { codigo . }
+    (31) codigo -> codigo . bloco
+    (32) bloco -> . arr [ MATI ] IGUAL MATI
+    (35) bloco -> . matriz IGUAL MATI
+    (36) bloco -> . ID MENOSMENOS
+    (37) bloco -> . ID MAISMAIS
+    (38) bloco -> . ID IGUAL bool
+    (39) bloco -> . ID IGUAL MATI
+    (41) bloco -> . callF
+    (42) bloco -> . ID IGUAL callF
+    (47) bloco -> . PRINTF ( textos )
+    (54) bloco -> . PRINTF ( MATI )
+    (55) bloco -> . ID IGUAL GETLINE
+    (56) bloco -> . arr [ MATI ] IGUAL GETLINE
+    (57) bloco -> . initIF { codigo } else { codigo }
+    (58) bloco -> . initIF { codigo }
+    (61) bloco -> . FOR ( cFor ) { codigo }
+    (79) bloco -> . repeat { codigo } UNTIL ( bool )
+    (81) bloco -> . while { codigo }
+    (19) arr -> . ID
+    (33) matriz -> . arr posicoes
+    (40) callF -> . CALL ID ( )
+    (59) initIF -> . IF ( bool )
+    (80) repeat -> . REPEAT
+    (82) while -> . labelW ( bool )
+    (83) labelW -> . WHILE
+
+    }               shift and go to state 190
+    ID              shift and go to state 17
+    PRINTF          shift and go to state 19
+    FOR             shift and go to state 21
+    CALL            shift and go to state 24
+    IF              shift and go to state 25
+    REPEAT          shift and go to state 26
+    WHILE           shift and go to state 28
+
+    initIF                         shift and go to state 20
+    bloco                          shift and go to state 14
+    arr                            shift and go to state 15
+    matriz                         shift and go to state 16
+    callF                          shift and go to state 18
+    repeat                         shift and go to state 22
+    while                          shift and go to state 23
+    labelW                         shift and go to state 27
+
+state 182
+
+    (61) bloco -> FOR ( cFor ) { codigo } .
+
+    ID              reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    PRINTF          reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    FOR             reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    CALL            reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    IF              reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    REPEAT          reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    WHILE           reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    $end            reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    }               reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+    RETURN          reduce using rule 61 (bloco -> FOR ( cFor ) { codigo } .)
+
+
+state 183
+
+    (62) cFor -> initFor ; ID IGUAL MATI .
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    )               reduce using rule 62 (cFor -> initFor ; ID IGUAL MATI .)
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 184
+
+    (79) bloco -> repeat { codigo } UNTIL ( bool . )
+    (68) bool -> bool . AND boolexp
+    (69) bool -> bool . OR boolexp
+
+    )               shift and go to state 191
+    AND             shift and go to state 99
+    OR              shift and go to state 100
+
+
+state 185
+
+    (43) declaracao -> defFunc ( ) { inicializacoes codigo return } .
+
+    DEF             reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    ID              reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    PRINTF          reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    FOR             reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    CALL            reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    IF              reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    REPEAT          reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    WHILE           reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+    $end            reduce using rule 43 (declaracao -> defFunc ( ) { inicializacoes codigo return } .)
+
+
+state 186
+
+    (45) return -> RETURN NUM .
+
+    }               reduce using rule 45 (return -> RETURN NUM .)
+
+
+state 187
+
+    (46) return -> RETURN ID .
+
+    }               reduce using rule 46 (return -> RETURN ID .)
+
+
+state 188
+
+    (21) operando -> arr [ MATI ] [ MATI . ]
+    (12) MATI -> MATI . + operando
+    (13) MATI -> MATI . - operando
+    (14) MATI -> MATI . * operando
+    (15) MATI -> MATI . / operando
+    (16) MATI -> MATI . % operando
+
+    ]               shift and go to state 192
+    +               shift and go to state 84
+    -               shift and go to state 85
+    *               shift and go to state 86
+    /               shift and go to state 87
+    %               shift and go to state 88
+
+
+state 189
+
+    (49) textos -> TEXTO + arr [ MATI ] .
+    (51) array -> arr [ MATI ] .
+
+    )               reduce using rule 49 (textos -> TEXTO + arr [ MATI ] .)
+    +               reduce using rule 51 (array -> arr [ MATI ] .)
+
+
+state 190
+
+    (57) bloco -> initIF { codigo } else { codigo } .
+
+    ID              reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    PRINTF          reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    FOR             reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    CALL            reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    IF              reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    REPEAT          reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    WHILE           reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    $end            reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    }               reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+    RETURN          reduce using rule 57 (bloco -> initIF { codigo } else { codigo } .)
+
+
+state 191
+
+    (79) bloco -> repeat { codigo } UNTIL ( bool ) .
+
+    ID              reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    PRINTF          reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    FOR             reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    CALL            reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    IF              reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    REPEAT          reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    WHILE           reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    $end            reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    }               reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+    RETURN          reduce using rule 79 (bloco -> repeat { codigo } UNTIL ( bool ) .)
+
+
+state 192
+
+    (21) operando -> arr [ MATI ] [ MATI ] .
+
+    +               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    -               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    *               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    /               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    %               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    DEFI            reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    DEFF            reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    DEF             reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    ID              reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    PRINTF          reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    FOR             reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    CALL            reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    IF              reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    REPEAT          reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    WHILE           reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    $end            reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    RETURN          reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    ]               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    }               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    MAIORIG         reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    MENORIG         reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    MENOR           reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    MAIOR           reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    IGUALDADE       reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    DIFERENTE       reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    )               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    AND             reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    OR              reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+    ;               reduce using rule 21 (operando -> arr [ MATI ] [ MATI ] .)
+

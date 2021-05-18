@@ -1,0 +1,10 @@
+
+int lol = 3 - 3 / 2
+int coise = 6 % 4
+int loll = 4 + coise
+float mor = sin(4.5)
+float pqpamoteTANTO = cos(4.3*2.0)
+float teamo = 4.5 * 3.1 / 4.0
+
+if (5 < 2 < 3) {}
+if (5 >= 4) {}

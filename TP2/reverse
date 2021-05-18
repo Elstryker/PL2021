@@ -1,0 +1,24 @@
+int i
+
+def reverse () {
+	int j
+	int N = 5
+	int[5] numeros
+
+	for (j = 0 ; j < N ; j++) {
+		numeros[j] = getline()
+	}
+	
+	j = 4
+	
+	printf("Números em ordem reversa:")
+
+	while (j >= 0) {
+		printf(numeros[j])
+		j--
+	}
+
+	return 0
+}
+
+i = call reverse()

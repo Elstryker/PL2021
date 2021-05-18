@@ -1,0 +1,11 @@
+int i = 4
+int j
+
+if (i != 5) {
+	j = getline()}
+
+if (true && false) {if (14 > 10){}}
+
+if (true || false) {}
+
+if (5 > 3 && 6 >= 4) {}

@@ -1,0 +1,21 @@
+int i
+
+def potencia() {
+	int b
+	int e
+	int res = 1
+	printf("Insira a base")
+	b = getline()
+	printf("Insira o expoente")
+	e = getline()
+
+	while(e > 0) {
+		res = res * b
+		e = e - 1
+	}
+	return res
+}
+
+i = call potencia()
+printf("O resultado é: ")
+printf(i)

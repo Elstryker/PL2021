@@ -67,7 +67,7 @@ def p_inicializacao_nul(p):
         p.parser.vars[p[2]] = fp
         p.parser.fp.append(fp + 1)
     else:
-        print('Essa variavel já existe man')
+        print('Essa variavel já existe')
         p_error(p)
         exit()
     print("PUSHI 0")
@@ -80,7 +80,7 @@ def p_inicializacao_float(p):
         p.parser.vars[p[2]] = fp
         p.parser.fp.append(fp + 1)
     else:
-        print('Essa variavel já existe man')
+        print('Essa variavel já existe')
         p_error(p)
         exit()
 
@@ -327,7 +327,7 @@ def p_defFunc(p):
         parser.funcs[p[2]] = str(p.parser.base)
         #print("isto dá ", parser.funcs[p[2]][0], parser.funcs[p[2]][1])
     else:
-        print('Essa função já existe man')
+        print('Essa função já existe')
         p_error(p)
         exit()
 

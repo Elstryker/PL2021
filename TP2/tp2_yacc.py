@@ -96,6 +96,9 @@ def p_declararFuncsF(p):
 def p_MATI_operando(p):
     "MATI : operando"
 
+def p_Termo_factor(p):
+    "operando : factor"
+
 def p_MATI_SOMA(p):
     "MATI : MATI '+' operando"
 
@@ -107,27 +110,27 @@ def p_MATI_SUB(p):
     print("SUB")
 
 def p_MATI_MUL(p):
-    "MATI : MATI '*' operando"
+    "operando : operando '*' factor"
 
     print("MUL")
 
 def p_MATI_DIV(p):
-    "MATI : MATI '/' operando"
+    "operando : operando '/' factor"
 
     print("DIV")
 
 def p_MATI_MOD(p):
-    "MATI : MATI '%' operando"
+    "operando : operando '%' factor"
 
     print("MOD")
 
 def p_operando(p):
-    "operando : NUM"
+    "factor : NUM"
 
     print("PUSHI", p[1])
 
 def p_operandoID(p):
-    "operando : ID"
+    "factor : ID"
 
     if p[1] not in p.parser.vars:
         p_error(p)
@@ -135,6 +138,9 @@ def p_operandoID(p):
         exit()
 
     print("PUSHL", p.parser.vars[p[1]])
+
+def p_Factor_group(p):
+    "factor : '(' MATI ')'"
 
 # ------------------------------------------ ARRAYS --------------------------------------------
 
@@ -526,6 +532,17 @@ def p_initEBool(p):
     lbl3 = str(p.parser.numLabel)
     print("for" + lbl3 + ":")
     p[0] = [p[1], lbl1, lbl2, lbl3]
+
+def p_incrementoEXP(p):
+    "incremento : ID IGUAL MATI"
+
+    if p[1] not in p.parser.vars:
+        p_error(p)
+        print("A variável não existe, adeus")
+        exit()
+
+    print("STOREL", p.parser.vars[p[1]])
+
 
 def p_incrementoMENOS(p):
     "incremento : ID MENOSMENOS"

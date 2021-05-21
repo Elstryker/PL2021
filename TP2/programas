@@ -1,0 +1,181 @@
+int i
+int j
+
+def menu() {
+    printf("\n\nEscolha o programa que deseja correr:")
+    printf("1. Lados de um quadrado")
+    printf("2. Menor número")
+    printf("3. Produtório de 3 números")
+    printf("4. Imprimir os números ímpares de uma sequência")
+    printf("5. Ler números para um array e imprimir por ordem inversa")
+    printf("6. Calcular a potência B^E")
+    printf("0. Sair")
+
+    return 0
+}
+
+def quadrado(){
+	int res = 1
+	int l
+	int k
+	int c
+	printf("Insira o comprimento do lado\n")
+	l = getline()
+	while (res == 1 && k < 3) {
+		printf("Insira o comprimento do lado\n")
+		c = getline()
+		res = l == c
+		k = k + 1
+	}
+
+	return res
+}
+
+def menor () {
+	int contador
+	int qts
+	int ans
+	int p
+
+	printf("Insira quantos números quer ler")
+
+	qts = getline()
+
+	while(contador < qts){
+		p = getline()
+		if (p < ans || contador == 0) {
+			ans = p
+		}
+		contador = contador + 1
+	}
+
+	return ans
+}
+
+def produtorio () {
+	int conta = 3
+	int q
+	int new
+	int resp = 1
+
+    printf("Introduza 3 números para calcularmos o seu produtório")
+
+	while (q < conta){
+		new = getline()
+		resp = resp * new
+		q = q + 1
+	}
+
+	return resp
+}
+
+def impares() {
+	int v
+	int x
+	int quantos
+	int contaimp
+	printf("Quantos números deseja inserir?")
+	quantos = getline()
+
+	while (v < quantos) {
+		x = getline()
+		if (x % 2 == 1) {
+			printf("Impar inserido: ")
+			printf(x)
+			contaimp++
+		}
+		v = v + 1
+	}
+	return contaimp
+}
+
+def reverse () {
+	int cont
+	int Nr = 5
+	int[5] numeros
+
+	for (cont = 0 ; cont < Nr ; cont++) {
+		numeros[cont] = getline()
+	}
+
+	cont = 4
+
+	printf("Números em ordem reversa:")
+
+	while (cont >= 0) {
+		printf(numeros[cont])
+		cont--
+	}
+
+	return 0
+}
+
+def potencia() {
+	int b
+	int e
+	int resposta = 1
+
+	printf("Insira a base")
+	b = getline()
+
+	printf("Insira o expoente")
+	e = getline()
+
+	while(e > 0) {
+		resposta = resposta * b
+		e = e - 1
+	}
+	return resposta
+}
+
+call menu()
+j = getline()
+
+while (j != 0) {
+    if (j == 1) {
+        i = call quadrado()
+
+        if (i == 1) {
+	        printf("Os lados inseridos sao um quadrado!")
+        } else {
+	        printf("Nao sao os lados de um quadrado.")
+        }
+    }
+
+    if (j == 2) {
+        i = call menor()
+
+        printf("O menor número é o ")
+        printf(i)
+    }
+
+    if (j == 3) {
+        i = call produtorio()
+
+        printf("O produtorio dos numeros é: ")
+        printf(i)
+    }
+
+    if (j == 4) {
+        i = call impares()
+
+        printf("Impares inseridos:")
+        printf(i)
+    }
+
+    if (j == 5) {
+        i = call reverse()
+    }
+
+    if (j == 6) {
+        i = call potencia()
+
+        printf("A sua potência é: ")
+        printf(i)
+    }
+
+    call menu()
+    j = getline()
+}
+
+printf("Adeus, obrigado por utilizar o nosso programa!")

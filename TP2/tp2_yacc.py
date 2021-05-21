@@ -77,6 +77,7 @@ def p_inicializacao_float(p):
 
     if p[2] not in p.parser.vars:
         fp = p.parser.fp.pop()
+        p.parser.floats[p[2]] = fp
         p.parser.vars[p[2]] = fp
         p.parser.fp.append(fp + 1)
     else:
@@ -171,49 +172,62 @@ def p_operandoArray2d(p):
     print("ADD")
     print("LOADN")
 
-
 #-------------------------------------- OPERAÇÕES COM FLOATS -----------------------------------------
 
-def p_MATF_NUM(p):
-    "MATF : FEXP"
+def p_MATF_operando(p):
+    "MATF : operandof"
+
+def p_TermoF_factor(p):
+    "operandof : factorf"
 
 def p_MATF_SOMA(p):
-    "MATF : MATF '+' FEXP"
+    "MATF : MATF '+' operandof"
 
     print("FADD")
 
-def p_FEXP_F(p):
-    "FEXP : FLOAT"
+def p_MATF_SUB(p):
+    "MATF : MATF '-' operandof"
+
+    print("FSUB")
+
+def p_MATF_MUL(p):
+    "operandof : operandof '*' factorf"
+
+    print("FMUL")
+
+def p_MATF_DIV(p):
+    "operandof : operandof '/' factorf"
+
+    print("FDIV")
+
+def p_operandof(p):
+    "factorf : FLOAT"
 
     print("PUSHF", p[1])
 
+def p_operandofID(p):
+    "factorf : ID"
+
+    if p[1] not in p.parser.vars:
+        p_error(p)
+        print("A variável não existe, adeus")
+        exit()
+
+    print("PUSHL", p.parser.vars[p[1]])
+
+def p_FactorF_group(p):
+    "factorf : '(' MATF ')'"
+
 def p_FEXP_C(p):
-    "FEXP : COS '(' MATF ')'"
+    "MATF : COS '(' MATF ')'"
 
     print("FCOS")
 
 def p_FEXP_S(p):
-    "FEXP : SIN '(' MATF ')'"
+    "MATF : SIN '(' MATF ')'"
 
     print("FSIN")
 
-def p_MATF_SUB(p):
-    "MATF : MATF '-' FLOAT"
-
-    print("PUSHF", p[3])
-    print("FSUB")
-
-def p_MATF_MUL(p):
-    "MATF : MATF '*' FLOAT"
-
-    print("PUSHF", p[3])
-    print("FMUL")
-
-def p_MATF_DIV(p):
-    "MATF : MATF '/' FLOAT"
-
-    print("PUSHF", p[3])
-    print("FDIV")
 
 # -------------------------------------------- CODIGO ------------------------------------------------
 
@@ -425,6 +439,14 @@ def p_bloco_writeS(p):
     "bloco : PRINTF '(' MATI ')'"
 
     print("WRITEI")
+    print('PUSHS "\\n"')
+    print("WRITES")
+
+def p_bloco_writeF(p):
+    "bloco : PRINTF '(' FLOAT ')'"
+
+    print("PUSHF " + p[3])
+    print("WRITEF")
     print('PUSHS "\\n"')
     print("WRITES")
 
@@ -679,6 +701,7 @@ def p_error(p):
 # Build the parser and initialize variables
 parser = yacc.yacc()
 parser.vars = dict()
+parser.floats = dict()
 parser.funcs = dict()
 parser.fp = [0]
 parser.ifs = []

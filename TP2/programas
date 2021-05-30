@@ -9,6 +9,7 @@ def menu() {
     printf("4. Imprimir os números ímpares de uma sequência")
     printf("5. Ler números para um array e imprimir por ordem inversa")
     printf("6. Calcular a potência B^E")
+    printf("7. Programa de teste")
     printf("0. Sair")
 
     return 0
@@ -128,6 +129,37 @@ def potencia() {
 	return resposta
 }
 
+def funcaoAninhada() {
+	int talvez = 4
+	printf("Isto é uma função encadeada")
+	return talvez
+}
+
+def progTeste() {
+	int linhas = 3
+	int colunas = 3
+	int[3][3] matriz
+	int lin
+	int col
+    int X
+
+    printf("\nImprimindo uma matriz 3x3, com (linha+X)*coluna em cada célula, selecione o seu X:")
+
+    X = getline()
+	repeat {
+		printf("Linha")
+
+		for (col = 0 ; col < colunas ; col++) {
+			matriz[lin][col] = (lin+X)*col
+			printf(matriz[lin][col])
+		}
+		lin++
+	} until (lin == linhas)
+    X = getline()
+	col = call funcaoAninhada()
+	return col
+}
+
 call menu()
 j = getline()
 
@@ -174,6 +206,12 @@ while (j != 0) {
         printf(i)
     }
 
+    if(j == 7) {
+        i = call progTeste()
+
+        printf("A função correu com sucesso e o resultado é:")
+        printf(i)
+    }
     call menu()
     j = getline()
 }
